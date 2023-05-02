@@ -1,0 +1,9 @@
+[user]
+	name = alexk49
+	email = alexk49@users.noreply.github.com
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[credential]
+    helper = manager
