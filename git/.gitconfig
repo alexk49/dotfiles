@@ -1,9 +1,9 @@
-[user]
-	name = alexk49
-	email = alexk49@users.noreply.github.com
+# local settings/private details go in included file
+[include]
+    path = ~/.gitconfig.local
+[core]
+    editor = vim
 [init]
 	defaultBranch = main
 [color]
 	ui = auto
-[credential]
-    helper = manager
