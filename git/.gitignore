@@ -1,0 +1,6 @@
+.venv
+venv
+*.swp
+.netrwhist
+.DS_Store
+.vscode
