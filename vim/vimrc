@@ -1,0 +1,141 @@
+" turns off vi settings
+set nocompatible
+
+let mapleader=" "
+
+" allow mouse use 
+set mouse=a
+
+" configure backspace to work like a backspace
+set backspace=eol,start,indent
+
+" make vim paste from external programs with just p
+set clipboard=unnamed
+
+" when you search for a file, search through every sub directory
+set path+=**
+
+" display all matching files when tab complete
+set wildmenu
+" press :b <tab> to search through current buffer list 
+" can also use :<tab> to search through commands
+set wildchar=<Tab> wildmode=full
+" ignore swp files in tabs
+setglobal wildignore+=*.swp
+" file detection on
+filetype on
+filetype plugin on
+filetype indent on
+
+" allows case insensitive searching
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" quickly remove highlights with double tap esc 
+nnoremap <Esc><Esc> :noh<Return><Esc>
+
+" set syntax highlighting
+syntax on
+
+" sets line numbers
+set number
+
+set history=200
+
+" matches indent on new lines
+set autoindent
+" indent new lines based on rules
+set smartindent
+
+" Set tab width to 4 columns.
+set tabstop=4
+" Use space characters instead of tabs.
+set expandtab
+" indent a new line the same amount as line just typed
+set shiftwidth=4
+set smarttab
+
+" this will make vim wrap text on word rather than char
+set linebreak
+
+" show the mode you are on the last line
+set showmode
+" no need for backup feature
+set nobackup
+
+" set persisting directory for undo file/tree when needed
+set undodir =~/.vim/undo_dir
+set undofile
+
+" variables for current mode to be passed to status line
+let g:currentmode={
+       \ 'n'  : 'NORMAL ',
+       \ 'v'  : 'VISUAL ',
+       \ 'V'  : 'V·Line ',
+       \ "\<C-V>" : 'V·Block ',
+       \ 'i'  : 'INSERT ',
+       \ 'R'  : 'R ',
+       \ 'Rv' : 'V·Replace ',
+       \ 'c'  : 'Command ',
+       \}
+
+" status line display
+set laststatus=2
+set statusline=
+set statusline+=\ %{toupper(g:currentmode[mode()])} " sets current mode using above function 
+set statusline+=%F " shows the path to file 
+set statusline+=%= " right indents the below
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ line:%l\ col:%c " show current line and column
+set statusline+=\ End:%L
+
+" set dark background for gvim
+set background=dark
+
+" on windows make GUI vim open in full screen
+if has("win32")
+    au GUIEnter * simalt ~x
+    " clearly visible font for gvim windows
+    set guifont=Lucida_Console:h11:b
+endif
+
+
+" allows more matching using the % on brackets etc
+packadd! matchit
+
+" vim plug plugin manager
+call plug#begin('~/.vimfiles/plugged')
+
+" color scheme
+Plug 'sainnhe/everforest'
+" linter
+Plug 'dense-analysis/ale'
+" useful for working with html tags
+Plug 'tpope/vim-surround'
+" shortcuts for writing html 
+Plug 'mattn/emmet-vim'
+" auto creates closing tags for html
+Plug 'alvan/vim-closetag'
+
+call plug#end()
+
+" colorscheme settings for everforest
+if has('termguicolors')
+    set termguicolors
+endif
+let g:everforest_better_performance = 1
+colorscheme everforest
+
+" emmet config
+
+" map emmet leader key to , so to use you press ,, to execute a command
+let g:user_emmet_leader_key=','
+
+" ale config, only use specified linters
+let g:ale_linters_explicit = 1
+let b:ale_linters = {
+            \ 'python': ['pylint', 'flake8'], 
+            \ 'javascript' : ['eslint'], 
+            \ }
