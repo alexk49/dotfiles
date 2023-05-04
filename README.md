@@ -34,4 +34,18 @@ Or, for powershell profile which by default lives in the documents folder:
 ```powershell
 . path/to/dotfiles/powershell/.profile.ps1 
 ```
+## vim
 
+On linux:
+
+```linux
+ln -s /repos/dotfiles/vim ~/.vim
+```
+
+on windows:
+
+```
+ln -s /repos/dotfiles/vim ~/vimfiles
+```
+
+It can be worth making a sym link between .vim and vimfiles on windows as well, if you using wsl or git for windows.
