@@ -1,6 +1,7 @@
 " turns off vi settings
 set nocompatible
 
+" set leader key to space
 let mapleader=" "
 
 " allow mouse use 
@@ -17,20 +18,36 @@ set path+=**
 
 " display all matching files when tab complete
 set wildmenu
+
 " press :b <tab> to search through current buffer list 
 " can also use :<tab> to search through commands
 set wildchar=<Tab> wildmode=full
+
 " ignore swp files in tabs
 setglobal wildignore+=*.swp
+
+" auto increment with ctrl a or ctrl x with letters as well as numbers
+set nrformats+=alpha
+
 " file detection on
 filetype on
+
+" plugins work for specifc file types
 filetype plugin on
+
+" indent for specific file types
 filetype indent on
 
 " allows case insensitive searching
 set ignorecase
+
+" improve search
 set smartcase
+
+" highlight searching
 set hlsearch
+
+" show search as you type
 set incsearch
 
 " quickly remove highlights with double tap esc 
@@ -42,19 +59,25 @@ syntax on
 " sets line numbers
 set number
 
-set history=200
+" set command history
+set history=500
 
 " matches indent on new lines
 set autoindent
+
 " indent new lines based on rules
 set smartindent
 
 " Set tab width to 4 columns.
 set tabstop=4
+
 " Use space characters instead of tabs.
 set expandtab
+
 " indent a new line the same amount as line just typed
 set shiftwidth=4
+
+" make tab work better
 set smarttab
 
 " this will make vim wrap text on word rather than char
@@ -62,11 +85,14 @@ set linebreak
 
 " show the mode you are on the last line
 set showmode
+
 " no need for backup feature
 set nobackup
 
 " set persisting directory for undo file/tree when needed
 set undodir =~/.vim/undo_dir
+
+" set undo file
 set undofile
 
 " variables for current mode to be passed to status line
@@ -91,13 +117,13 @@ set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\ line:%l\ col:%c " show current line and column
 set statusline+=\ End:%L
 
-" set dark background for gvim
+" set dark background, mainly needed for gvim
 set background=dark
 
 " on windows make GUI vim open in full screen
 if has("win32")
     au GUIEnter * simalt ~x
-    " clearly visible font for gvim windows
+    " clearly visible font for gvim windows but displays badly for linux
     set guifont=Lucida_Console:h11:b
 endif
 
@@ -125,6 +151,8 @@ call plug#end()
 if has('termguicolors')
     set termguicolors
 endif
+
+" set colorscheme
 let g:everforest_better_performance = 1
 colorscheme everforest
 
