@@ -7,4 +7,4 @@ alias gc="git commit"
 alias gs="git status"
 
 # howto script
-alias ht=$HOME'/repos/howto-cli/howto.sh'
+alias ht=$HOME'/repos/ht-cli/howto.sh'
