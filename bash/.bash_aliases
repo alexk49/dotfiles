@@ -8,3 +8,6 @@ alias gs="git status"
 
 # howto script
 alias ht=$HOME'/repos/ht-cli/howto.sh'
+
+# git for windows specific aliases
+alias np="notepad"
