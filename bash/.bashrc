@@ -128,3 +128,6 @@ export TODOTXT_DEFAULT_ACTION=ls
 alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
 
 # end of todo.txt
+
+# source bash alias files in dotfiles dir
+source "$HOME/repos/dotfiles/bash/.bash_aliases
