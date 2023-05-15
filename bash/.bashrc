@@ -135,4 +135,4 @@ alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
 umask 0002
 
 # source bash alias files in dotfiles dir
-source "$HOME/repos/dotfiles/bash/.bash_aliases
+source "$HOME/repos/dotfiles/bash/.bash_aliases"
