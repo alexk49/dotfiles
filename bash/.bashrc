@@ -13,6 +13,8 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
+# ignore duplicates in command history
+export HISTCONTROL=ignoredups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -128,3 +130,6 @@ export TODOTXT_DEFAULT_ACTION=ls
 alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
 
 # end of todo.txt
+
+# sets the umask to solve issues with shared dirs
+umask 0002
