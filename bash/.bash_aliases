@@ -12,3 +12,8 @@ alias ht=$HOME'/repos/ht-cli/howto.sh'
 
 # list hidden dirs
 alias l.='ls -d .* --color=auto'
+
+# git for windows specific aliases
+alias np="notepad"
+# shortcut for mousepad on xubuntu
+alias mp="mousepad"

@@ -133,3 +133,6 @@ alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
 
 # sets the umask to solve issues with shared dirs
 umask 0002
+
+# source bash alias files in dotfiles dir
+source "$HOME/repos/dotfiles/bash/.bash_aliases
