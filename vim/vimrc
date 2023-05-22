@@ -26,6 +26,9 @@ set wildchar=<Tab> wildmode=full
 " ignore swp files in tabs
 setglobal wildignore+=*.swp
 
+" allow switching of buffers without saving
+set hidden
+
 " auto increment with ctrl a or ctrl x with letters as well as numbers
 set nrformats+=alpha
 
@@ -95,6 +98,9 @@ set undodir =~/.vim/undo_dir
 " set undo file
 set undofile
 
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
+
 " variables for current mode to be passed to status line
 let g:currentmode={
        \ 'n'  : 'NORMAL ',
@@ -161,9 +167,14 @@ colorscheme everforest
 " map emmet leader key to , so to use you press ,, to execute a command
 let g:user_emmet_leader_key=','
 
-" ale config, only use specified linters
+" ale config
+
+" only use specified linters
 let g:ale_linters_explicit = 1
 let b:ale_linters = {
-            \ 'python': ['pylint', 'flake8'], 
+            \ 'python': ['pylint', 'flake8', 'black'], 
             \ 'javascript' : ['eslint'], 
             \ }
+
+" set virtual environment names
+let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
