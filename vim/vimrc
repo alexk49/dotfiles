@@ -16,6 +16,9 @@ set clipboard=unnamed
 " when you search for a file, search through every sub directory
 set path+=**
 
+" automatically change directory to currently open file
+set autochdir
+
 " display all matching files when tab complete
 set wildmenu
 
