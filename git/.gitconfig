@@ -3,7 +3,7 @@
     path = ~/.gitconfig.local
 [core]
     editor = vim
-	excludesfile = /home/lexicypher/repos/dotfiles/git/.gitignore
+	excludesfile = $HOME/repos/dotfiles/git/.gitignore
 [init]
 	defaultBranch = main
 [color]
