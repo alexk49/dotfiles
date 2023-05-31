@@ -137,13 +137,13 @@ set statusline+=\ End:%L
 " set dark background, mainly needed for gvim
 set background=dark
 
-" on windows make GUI vim open in full screen
+" windows only options
 if has("win32")
+    " on windows make GUI vim open in full screen
     au GUIEnter * simalt ~x
     " clearly visible font for gvim windows but displays badly for linux
     set guifont=Lucida_Console:h11:b
 endif
-
 
 " allows more matching using the % on brackets etc
 packadd! matchit
