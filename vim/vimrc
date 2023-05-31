@@ -121,6 +121,7 @@ let g:currentmode={
        \ 'R'  : 'R ',
        \ 'Rv' : 'V·Replace ',
        \ 'c'  : 'Command ',
+       \ 't'  : 'Terminal ',
        \}
 
 " status line display
