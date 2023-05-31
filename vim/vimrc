@@ -89,6 +89,11 @@ set smarttab
 " this will make vim wrap text on word rather than char
 set linebreak
 
+" remaps to make vim use virtual lines when using gj without count
+" but still use physical lines when used with count
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
 " show the mode you are on the last line
 set showmode
 
@@ -103,6 +108,8 @@ set undofile
 
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
+
+" status line settings 
 
 " variables for current mode to be passed to status line
 let g:currentmode={
@@ -175,7 +182,7 @@ let g:user_emmet_leader_key=','
 " only use specified linters
 let g:ale_linters_explicit = 1
 let b:ale_linters = {
-            \ 'python': ['pylint', 'flake8', 'black'], 
+            \ 'python': ['flake8'], 
             \ 'javascript' : ['eslint'], 
             \ }
 
