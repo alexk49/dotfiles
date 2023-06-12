@@ -184,7 +184,8 @@ let g:user_emmet_leader_key=','
 let g:ale_linters_explicit = 1
 let b:ale_linters = {
             \ 'python': ['flake8', 'mypy'], 
-            \ 'javascript' : ['eslint'], 
+            \ 'javascript': ['eslint'], 
+            \ 'bash': ['shellcheck'],
             \ }
 
 " set virtual environment names
