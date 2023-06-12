@@ -89,11 +89,6 @@ set smarttab
 " this will make vim wrap text on word rather than char
 set linebreak
 
-" remaps to make vim use virtual lines when using gj without count
-" but still use physical lines when used with count
-noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
-
 " show the mode you are on the last line
 set showmode
 
@@ -144,6 +139,19 @@ if has("win32")
     " clearly visible font for gvim windows but displays badly for linux
     set guifont=Lucida_Console:h11:b
 endif
+
+" remaps
+
+" remaps to make vim use virtual lines when using gj without count
+" but still use physical lines when used with count
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+
+" Change indent continuously
+vmap < <gv
+vmap > >gv
+
+" plugins with vim plug
 
 " allows more matching using the % on brackets etc
 packadd! matchit
