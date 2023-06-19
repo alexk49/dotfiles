@@ -1,7 +1,17 @@
+# virtual environments
 .venv
 venv
+
+# vim nonsense
 *.swp
 .netrwhist
+
+# windows nonsense
 .DS_Store
 .vscode
+
+# python nonsense
 __pycache__
+
+# logs folders/file
+logs
