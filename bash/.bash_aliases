@@ -8,7 +8,10 @@ alias gc="git commit"
 alias gs="git status"
 
 # howto script
-alias ht=$HOME'/repos/ht-cli/howto.sh'
+alias ht="$HOME/repos/ht-cli/howto.sh"
+
+# task journal script
+alias tj="$HOME/repos/task-journal/task-journal.sh"
 
 # list hidden dirs
 alias l.='ls -d .* --color=auto'
