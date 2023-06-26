@@ -16,8 +16,11 @@ alias tj="$HOME/repos/task-journal/task-journal.sh"
 # list hidden dirs
 alias l.='ls -d .* --color=auto'
 
-# git for windows specific aliases
-alias np="notepad"
+# grep history
+# allows to search history with:
+# gh "search term"
+alias gh="history | grep"
+
 # shortcut for mousepad on xubuntu
 alias mp="mousepad"
 
