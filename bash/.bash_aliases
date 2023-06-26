@@ -20,3 +20,6 @@ alias l.='ls -d .* --color=auto'
 alias np="notepad"
 # shortcut for mousepad on xubuntu
 alias mp="mousepad"
+
+# short cuts for neovim
+alias nvi="nvi"
