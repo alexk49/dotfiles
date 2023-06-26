@@ -23,5 +23,4 @@ alias mp="mousepad"
 
 # short cuts for neovim
 alias nvi="nvim"
-# short cut for vim
 alias vi="vim"
