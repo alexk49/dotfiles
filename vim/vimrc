@@ -196,6 +196,8 @@ let b:ale_linters = {
             \ 'bash': ['shellcheck'],
             \ }
 
+" stop ALE messages showing as comments
+let g:ale_virtualtext_cursor = 0
 " set virtual environment names
 let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
 " set line length for flake8
