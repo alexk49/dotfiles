@@ -22,4 +22,4 @@ alias np="notepad"
 alias mp="mousepad"
 
 # short cuts for neovim
-alias nvi="nvi"
+alias nvi="nvim"
