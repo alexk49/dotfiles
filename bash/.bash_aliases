@@ -33,3 +33,7 @@ alias l.="ls -d .* --color=auto"
 
 # shortcut for mousepad on xubuntu
 alias mp="mousepad"
+
+# short cuts for neovim
+alias nvi="nvim"
+alias vi="vim"
