@@ -122,10 +122,19 @@ fi
 
 # end of xubuntu defaults
 
+# this sets makes vim commands usable on command line
+set -o vi
+
+# set vim as default editor
+EDITOR=vim; export EDITOR
+
+# paths
+PATH=$PATH:"$HOME/scripts"
+PATH=$PATH:"$HOME/bin"
+
 # start of todo.txt config
 
 source "$HOME/scripts/todo_completion"
-PATH=$PATH:"$HOME/scripts"
 export TODOTXT_DEFAULT_ACTION=ls
 alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
 
@@ -136,3 +145,6 @@ umask 0002
 
 # source bash alias files in dotfiles dir
 source "$HOME/repos/dotfiles/bash/.bash_aliases"
+
+# source bash functions files in dotfiles dir
+source "$HOME/repos/dotfiles/bash/.bash_functions"
