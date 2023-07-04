@@ -37,3 +37,6 @@ alias mp="mousepad"
 # short cuts for neovim
 alias nvi="nvim"
 alias vi="vim"
+
+# get path
+alias gp="find -type f | fzf | sed 's/^..//' | tr -d '\n' | xclip -selection a"
