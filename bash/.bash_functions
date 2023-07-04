@@ -2,7 +2,7 @@
 # v gives verbosity
 mcd () {
     mkdir -p -v "$1"
-    cd "$1"
+    cd "$1" || exit 
 }
 
 
