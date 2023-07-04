@@ -17,3 +17,7 @@ mrf () {
     find . -maxdepth 1 -not -type d -print0 | xargs -0 ls -t | head -n 1
 }
 
+# find and change directory
+fcd () {
+    cd "$(find -type d | fzf)"
+}
