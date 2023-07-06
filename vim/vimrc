@@ -19,6 +19,9 @@ set path+=**
 " automatically change directory to currently open file
 set autochdir
 
+" when splitting set new file to appear in right window
+set splitright
+
 " display all matching files when tab complete
 set wildmenu
 
@@ -56,8 +59,6 @@ set hlsearch
 " show search as you type
 set incsearch
 
-" quickly remove highlights with double tap esc 
-nnoremap <Esc><Esc> :noh<Return><Esc>
 
 " set syntax highlighting
 syntax on
@@ -147,9 +148,17 @@ endif
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
+" quickly remove highlights with double tap esc 
+nnoremap <Esc><Esc> :noh<Return><Esc>
+
 " Change indent continuously
 vmap < <gv
 vmap > >gv
+
+" remap vt to vertical terminal
+# this checks your in command mode first
+# and checks vt is the whole command before executing
+cabbrev <expr> vt getcmdtype() ==# ':' && getcmdline() ==# 'vt' ? 'vertical terminal' : 'vt'
 
 " plugins with vim plug
 
