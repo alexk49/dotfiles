@@ -156,8 +156,8 @@ vmap < <gv
 vmap > >gv
 
 " remap vt to vertical terminal
-# this checks your in command mode first
-# and checks vt is the whole command before executing
+" this checks your in command mode first
+" and checks vt is the whole command before executing
 cabbrev <expr> vt getcmdtype() ==# ':' && getcmdline() ==# 'vt' ? 'vertical terminal' : 'vt'
 
 " plugins with vim plug
