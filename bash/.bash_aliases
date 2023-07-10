@@ -17,7 +17,7 @@ alias gc="git commit"
 alias gs="git status"
 
 # view simple one line git log
-alias gl="git log --online"
+alias gl="git log --oneline"
 
 # view difference
 alias gd="git diff"
