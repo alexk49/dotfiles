@@ -148,3 +148,6 @@ source "$HOME/repos/dotfiles/bash/.bash_aliases"
 
 # source bash functions files in dotfiles dir
 source "$HOME/repos/dotfiles/bash/.bash_functions"
+
+# add time in dim light gray to start of prompt
+PS1="\e[2;37m(\A)\e[0m $PS1"
