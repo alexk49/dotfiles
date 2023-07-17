@@ -150,4 +150,4 @@ source "$HOME/repos/dotfiles/bash/.bash_aliases"
 source "$HOME/repos/dotfiles/bash/.bash_functions"
 
 # add time in dim light gray to start of prompt
-PS1="\e[2;37m(\A)\e[0m $PS1"
+export PS1="\[\e\][2;37m(\A)\[\e\][0m $PS1"
