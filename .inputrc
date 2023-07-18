@@ -6,7 +6,7 @@ set editing-mode vi
 set show-mode-in-prompt on
 
 # Make Tab autocomplete regardless of filename case
-set completion-ignore-case on
+set completion-ignore-case On
 
 # Do not autocomplete hidden files unless the pattern explicitly begins with a dot
 set match-hidden-files off
