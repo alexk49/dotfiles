@@ -59,7 +59,6 @@ set hlsearch
 " show search as you type
 set incsearch
 
-
 " set syntax highlighting
 syntax on
 
@@ -96,16 +95,21 @@ set showmode
 " no need for backup feature
 set nobackup
 
-" set persisting directory for undo file/tree when needed
-set undodir =~/.vim/undo_dir
+# set persistant undos if available
+if has ('persistent_undo')
+    " set persisting directory for undo file/tree when needed
+    set undodir =~/.vim/undos
 
-" set undo file
-set undofile
+    " set undo file
+    set undofile
+endif
 
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
+# ====================
 " status line settings 
+# ====================
 
 " variables for current mode to be passed to status line
 let g:currentmode={
@@ -176,8 +180,6 @@ Plug 'dense-analysis/ale'
 Plug 'tpope/vim-surround'
 " shortcuts for writing html 
 Plug 'mattn/emmet-vim'
-" auto creates closing tags for html
-Plug 'alvan/vim-closetag'
 
 call plug#end()
 
