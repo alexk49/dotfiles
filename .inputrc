@@ -10,3 +10,6 @@ set completion-ignore-case On
 
 # Do not autocomplete hidden files unless the pattern explicitly begins with a dot
 set match-hidden-files off
+
+# turn off alarm bell
+set bell-style none
