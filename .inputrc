@@ -1,0 +1,12 @@
+# this sets vi mode on gnu readlline library
+# this includes things like running python in the terminal
+set editing-mode vi
+
+# show mode
+set show-mode-in-prompt on
+
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files off
