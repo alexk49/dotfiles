@@ -1,0 +1,18 @@
+# local settings/private details go in included file
+[user]
+	name = alexk49
+	email = alexk49@users.noreply.github.com
+[credential]
+    helper = manager
+[include]
+    path = ~/.gitconfig.local
+[core]
+    editor = vim
+	excludesfile = $HOME/dotfiles/.gitignore
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[user]
+	name = alexk49
+	email = alexcode9@mailbox.org
