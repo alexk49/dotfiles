@@ -95,11 +95,10 @@ set showmode
 " no need for backup feature
 set nobackup
 
-# set persistant undos if available
+" set persistant undos if available
 if has ('persistent_undo')
     " set persisting directory for undo file/tree when needed
     set undodir =~/.vim/undos
-
     " set undo file
     set undofile
 endif
@@ -107,9 +106,9 @@ endif
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
-# ====================
+" ====================
 " status line settings 
-# ====================
+" ====================
 
 " variables for current mode to be passed to status line
 let g:currentmode={
