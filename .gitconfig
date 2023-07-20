@@ -1,7 +1,7 @@
 # local settings/private details go in included file
 [user]
 	name = alexk49
-	email = alexk49@users.noreply.github.com
+	email = alexcode9@mailbox.org
 [credential]
     helper = manager
 [include]
@@ -13,6 +13,3 @@
 	defaultBranch = main
 [color]
 	ui = auto
-[user]
-	name = alexk49
-	email = alexcode9@mailbox.org
