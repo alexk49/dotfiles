@@ -2,4 +2,4 @@
 
 Just dotfiles.
 
-Easiest to set these up with sym links.
+Run setup.sh to make backups of existing dotfiles in ~/backup, and replace the originals with sym links.
