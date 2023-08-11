@@ -58,6 +58,8 @@ PATH=$PATH:"$HOME/go/bin"
 source "$HOME/scripts/todo_completion"
 export TODOTXT_DEFAULT_ACTION=ls
 alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
+# future log
+alias fl="$HOME/scripts/todo.sh -d $HOME/scripts/fl.cfg"
 
 # ============
 # set aliases
