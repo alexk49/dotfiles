@@ -106,11 +106,6 @@ alias gl="git log --oneline"
 # view difference
 alias gd="git diff"
 
-# howto script
-alias ht="$HOME/repos/ht-cli/howto.sh"
-
-# task journal script
-alias tj="$HOME/repos/task-journal/task-journal.sh"
 
 # list hidden dirs
 alias l.="ls -d .* --color=auto"
@@ -124,6 +119,18 @@ alias vi="vim"
 
 # get path
 alias gp="find -type f | fzf | sed 's/^..//' | tr -d '\n' | xclip -selection a"
+
+# ===================
+# aliases for scripts
+# ===================
+
+# howto script
+alias ht="$HOME/repos/ht-cli/howto.sh"
+
+# task journal script
+alias tj="$HOME/repos/task-journal/task-journal.sh"
+
+alias qn="$HOME/bin/quick-note.sh"
 
 # =============
 # set functions
