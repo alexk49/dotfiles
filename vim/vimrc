@@ -4,6 +4,9 @@ set nocompatible
 " set leader key to space
 let mapleader=" "
 
+" map local local to be used with plugins
+let maplocalleader=","
+
 " allow mouse use 
 set mouse=a
 
@@ -163,7 +166,9 @@ vmap > >gv
 " and checks vt is the whole command before executing
 cabbrev <expr> vt getcmdtype() ==# ':' && getcmdline() ==# 'vt' ? 'vertical terminal' : 'vt'
 
+" =====================
 " plugins with vim plug
+" =====================
 
 " allows more matching using the % on brackets etc
 packadd! matchit
