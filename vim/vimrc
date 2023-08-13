@@ -179,6 +179,8 @@ Plug 'dense-analysis/ale'
 Plug 'tpope/vim-surround'
 " shortcuts for writing html 
 Plug 'mattn/emmet-vim'
+" todo.txt highlights and shortcuts
+Plug 'freitass/todo.txt-vim'
 
 call plug#end()
 
