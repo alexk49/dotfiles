@@ -221,5 +221,4 @@ let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
 let g:ale_python_flake8_options = '--max-line-length=88'
 
 " todo.txt config
-autocmd BufNewFile,BufRead **/task-journal/** set filetype=todo
 autocmd BufNewFile,BufRead $HOME/notes/** set filetype=todo
