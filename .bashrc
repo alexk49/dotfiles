@@ -48,9 +48,12 @@ umask 0002
 # paths
 # ====
 
-PATH=$PATH:"$HOME/scripts"
-PATH=$PATH:"$HOME/bin"
-PATH=$PATH:"$HOME/go/bin"
+#PATH=$PATH:"$HOME/scripts"
+#PATH=$PATH:"$HOME/bin"
+#PATH=$PATH:"$HOME/dotfiles/bin"
+#PATH=$PATH:"$HOME/go/bin"
+
+export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/go/bin"
 
 # ===============
 # todo.txt config
@@ -58,8 +61,6 @@ PATH=$PATH:"$HOME/go/bin"
 source "$HOME/scripts/todo_completion"
 export TODOTXT_DEFAULT_ACTION=ls
 alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
-# future log
-alias fl="$HOME/scripts/todo.sh -d $HOME/scripts/fl.cfg"
 
 # ============
 # set aliases
@@ -132,7 +133,7 @@ alias ht="$HOME/repos/ht-cli/howto.sh"
 # task journal script
 alias tj="$HOME/repos/task-journal/task-journal.sh"
 
-alias qn="$HOME/bin/quick-note.sh"
+alias qn="$HOME/dotfiles/bin/quick-note.sh"
 
 # =============
 # set functions
