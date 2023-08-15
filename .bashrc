@@ -48,16 +48,12 @@ umask 0002
 # paths
 # ====
 
-#PATH=$PATH:"$HOME/scripts"
-#PATH=$PATH:"$HOME/bin"
-#PATH=$PATH:"$HOME/dotfiles/bin"
-#PATH=$PATH:"$HOME/go/bin"
-
 export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/go/bin"
 
 # ===============
 # todo.txt config
 # ===============
+
 source "$HOME/scripts/todo_completion"
 export TODOTXT_DEFAULT_ACTION=ls
 alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
