@@ -25,6 +25,9 @@ set autochdir
 " when splitting set new file to appear in right window
 set splitright
 
+" split new files appear below
+set splitbelow
+
 " display all matching files when tab complete
 set wildmenu
 
@@ -221,4 +224,4 @@ let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
 let g:ale_python_flake8_options = '--max-line-length=88'
 
 " todo.txt config
-autocmd BufNewFile,BufRead $HOME/notes/** set filetype=todo
+autocmd BufNewFile,BufRead $HOME/notes/** setlocal filetype=todo
