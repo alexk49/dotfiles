@@ -134,9 +134,44 @@ alias tj="$HOME/repos/task-journal/task-journal.sh"
 
 alias qn="$HOME/bin/quick-note.sh"
 
+alias notes="cd $HOME/notes"
+
 # =============
 # set functions
 # =============
+
+docs () {
+    docs_dir="$HOME/notes/docs"
+
+    if [[ "$#" == 0 ]]; then
+        # no additional args given just cd dir
+        cd "$docs_dir"
+    else
+        # loop through passed on arguments as search
+        search_query="$1"
+        reverse_query="$1"
+
+        seperator='.*'
+
+        for arg in "$@"; do
+            # if arg is first arg then do nothing
+            if [[ "$arg" == "$search_query" ]]; then
+                continue
+            fi
+            # concatenate search query with seperator and new query string
+            search_query="$search_query$seperator$arg"
+            reverse_query="$arg$seperator$reverse_query"
+        done
+
+        search_query="$search_query$seperator"
+        reverse_query="$reverse_query$seperator"
+
+        full_search_query="$search_query|$reverse_query"
+        echo "$full_search_query"
+        # /* after variable as otherwise it treats the /* as a literal path
+        grep --color=auto -r -E "$full_search_query" "$docs_dir"/* 
+    fi
+}
 
 mcd () {
     # make and change directory
