@@ -119,6 +119,9 @@ alias vi="vim"
 # get path
 alias gp="find -type f | fzf | sed 's/^..//' | tr -d '\n' | xclip -selection a"
 
+# edit todo.txt file
+alias etd="$EDITOR $HOME/notes/todo.txt"
+
 # ===================
 # aliases for scripts
 # ===================
