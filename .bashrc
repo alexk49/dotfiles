@@ -167,7 +167,6 @@ docs () {
         reverse_query="$reverse_query$seperator"
 
         full_search_query="$search_query|$reverse_query"
-        echo "$full_search_query"
         # /* after variable as otherwise it treats the /* as a literal path
         grep --color=auto -r -E "$full_search_query" "$docs_dir"/* 
     fi
