@@ -149,9 +149,8 @@ docs () {
     else
         # loop through passed on arguments as search
         search_query="$1"
-        reverse_query="$1"
 
-        seperator='.*'
+        seperator='|'
 
         for arg in "$@"; do
             # if arg is first arg then do nothing
@@ -160,15 +159,10 @@ docs () {
             fi
             # concatenate search query with seperator and new query string
             search_query="$search_query$seperator$arg"
-            reverse_query="$arg$seperator$reverse_query"
         done
 
-        search_query="$search_query$seperator"
-        reverse_query="$reverse_query$seperator"
-
-        full_search_query="$search_query|$reverse_query"
         # /* after variable as otherwise it treats the /* as a literal path
-        grep --color=auto -r -E "$full_search_query" "$docs_dir"/* 
+        grep --color=auto -r -E "$search_query" "$docs_dir"/* 
     fi
 }
 
