@@ -106,7 +106,6 @@ alias gl="git log --oneline"
 # view difference
 alias gd="git diff"
 
-
 # list hidden dirs
 alias l.="ls -d .* --color=auto"
 
