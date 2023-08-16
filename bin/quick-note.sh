@@ -22,13 +22,12 @@ quick_notes_file_path="$NOTES_FOLDER/notes_$current_date.md"
 
 today=$(date +"%Y-%m-%d %T")
 
+entry="# $today"
+
 if [[ ! -e "$quick_notes_file_path" ]]; then
-    touch "$quick_notes_file_path"
+    echo "$entry" > "$quick_notes_file_path"
+else
+    sed -i "1s/^/$entry\n\n/" "$quick_notes_file_path"
 fi
 
-entry="# $today\n\n"
-
-sed -i "1s/^/$entry/" "$quick_notes_file_path"
-
-#sed -i "1s/^/# task journal $entry_date\n\n/" "$filepath"
 "$EDITOR" "$quick_notes_file_path"
