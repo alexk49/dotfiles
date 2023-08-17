@@ -3,22 +3,11 @@
 # set vim as default editor
 EDITOR=vim; export EDITOR
 
-NOTES_FOLDER="$HOME/notes"
+NOTES_FOLDER="$HOME/notes/task-journal"
 
-ARCHIVE_FOLDER="$HOME/notes/archive"
+current_date=$(date +"%Y-%m-%d")
 
-previous_date=$(date -d "-1 month" "+%m%Y")
-
-previous_quick_notes_file_path="$NOTES_FOLDER/notes_$previous_date.md"
-
-if [[ -e "$previous_quick_notes_file_path" ]]; then
-    echo "archiving: $previous_quick_notes_file_path"
-    mv "$previous_quick_notes_file_path" "$ARCHIVE_FOLDER"
-fi
-
-current_date=$(date +"%m%Y")
-
-quick_notes_file_path="$NOTES_FOLDER/notes_$current_date.md"
+quick_notes_file_path="$NOTES_FOLDER/$current_date-notes.md"
 
 today=$(date +"%Y-%m-%d %T")
 
