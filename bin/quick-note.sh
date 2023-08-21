@@ -7,7 +7,7 @@ NOTES_FOLDER="$HOME/notes/task-journal"
 
 current_date=$(date +"%Y-%m-%d")
 
-quick_notes_file_path="$NOTES_FOLDER/$current_date-notes.md"
+quick_notes_file_path="$NOTES_FOLDER/$current_date-notes.txt"
 
 today=$(date +"%Y-%m-%d %T")
 
