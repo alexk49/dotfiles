@@ -7,7 +7,7 @@ let mapleader=" "
 " map local local to be used with plugins
 let maplocalleader=","
 
-" allow mouse use 
+" allow mouse use
 set mouse=a
 
 " configure backspace to work like a backspace
@@ -28,10 +28,13 @@ set splitright
 " split new files appear below
 set splitbelow
 
+" relative line numbers
+set relativenumber
+
 " display all matching files when tab complete
 set wildmenu
 
-" press :b <tab> to search through current buffer list 
+" press :b <tab> to search through current buffer list
 " can also use :<tab> to search through commands
 set wildchar=<Tab> wildmode=full
 
@@ -113,7 +116,7 @@ endif
 set noerrorbells visualbell t_vb=
 
 " ====================
-" status line settings 
+" status line settings
 " ====================
 
 " variables for current mode to be passed to status line
@@ -132,8 +135,8 @@ let g:currentmode={
 " status line display
 set laststatus=2
 set statusline=
-set statusline+=\ %{toupper(g:currentmode[mode()])} " sets current mode using above function 
-set statusline+=%F " shows the path to file 
+set statusline+=\ %{toupper(g:currentmode[mode()])} " sets current mode using above function
+set statusline+=%F " shows the path to file
 set statusline+=%= " right indents the below
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\ line:%l\ col:%c " show current line and column
@@ -157,7 +160,7 @@ endif
 noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
 noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
-" quickly remove highlights with double tap esc 
+" quickly remove highlights with double tap esc
 nnoremap <Esc><Esc> :noh<Return><Esc>
 
 " Change indent continuously
@@ -185,7 +188,7 @@ Plug 'sainnhe/everforest'
 Plug 'dense-analysis/ale'
 " useful for working with html tags
 Plug 'tpope/vim-surround'
-" shortcuts for writing html 
+" shortcuts for writing html
 Plug 'mattn/emmet-vim'
 " todo.txt highlights and shortcuts
 Plug 'freitass/todo.txt-vim'
@@ -211,17 +214,32 @@ let g:user_emmet_leader_key=','
 " only use specified linters
 let g:ale_linters_explicit = 1
 let b:ale_linters = {
-            \ 'python': ['flake8', 'mypy'], 
-            \ 'javascript': ['eslint'], 
+            \ 'python': ['flake8', 'mypy'],
+            \ 'javascript': ['eslint'],
             \ 'bash': ['shellcheck'],
             \ }
 
+
 " stop ALE messages showing as comments
 let g:ale_virtualtext_cursor = 0
+
 " set virtual environment names
 let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
+
 " set line length for flake8
 let g:ale_python_flake8_options = '--max-line-length=88'
 
-" todo.txt config
+" fix files when you save them.
+let g:ale_fix_on_save = 1
+
+" set ALE fixers
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier'],
+\   'html': ['prettier'],
+\   'css': ['prettier'],
+\   'python': ['black', 'autoflake'],
+\}
+
+" todo.txt config for all .txt files in notes folder
 autocmd BufNewFile,BufRead $HOME/notes/**.txt setlocal filetype=todo
