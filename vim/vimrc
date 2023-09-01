@@ -28,9 +28,6 @@ set splitright
 " split new files appear below
 set splitbelow
 
-" relative line numbers
-set relativenumber
-
 " display all matching files when tab complete
 set wildmenu
 
@@ -74,8 +71,11 @@ syntax on
 " sets line numbers
 set number
 
+" relative line numbers
+set relativenumber
+
 " set command history
-set history=500
+set history=1000
 
 " matches indent on new lines
 set autoindent
@@ -101,6 +101,9 @@ set linebreak
 " show the mode you are on the last line
 set showmode
 
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
+
 " no need for backup feature
 set nobackup
 
@@ -111,9 +114,6 @@ if has ('persistent_undo')
     " set undo file
     set undofile
 endif
-
-" Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
 
 " ====================
 " status line settings
@@ -163,6 +163,8 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 " quickly remove highlights with double tap esc
 nnoremap <Esc><Esc> :noh<Return><Esc>
 
+nnoremap <C-l> :noh<Return><Esc>
+
 " Change indent continuously
 vmap < <gv
 vmap > >gv
@@ -184,14 +186,46 @@ call plug#begin('~/.vimfiles/plugged')
 
 " color scheme
 Plug 'sainnhe/everforest'
-" linter
-Plug 'dense-analysis/ale'
+
 " useful for working with html tags
 Plug 'tpope/vim-surround'
-" shortcuts for writing html
-Plug 'mattn/emmet-vim'
+
 " todo.txt highlights and shortcuts
 Plug 'freitass/todo.txt-vim'
+
+" fuzzy finder, check for latest version
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" distraction free writing mode
+Plug 'junegunn/goyo.vim'
+
+if has('nvim')
+    " linters
+    Plug 'dense-analysis/ale'
+
+    " shortcuts for writing html
+    Plug 'mattn/emmet-vim'
+    " only enable for html and css files
+    let g:user_emmet_install_global = 0
+    autocmd FileType html,css EmmetInstall
+
+    " async background tasks, needed for markdown preview
+    Plug 'tpope/vim-dispatch'
+
+    " LSP Support
+    Plug 'neovim/nvim-lspconfig'             " Required
+    Plug 'williamboman/mason.nvim',          " Optional
+    Plug 'williamboman/mason-lspconfig.nvim' " Optional
+
+    " Autocompletion
+    Plug 'hrsh7th/nvim-cmp'     " Required
+    Plug 'hrsh7th/cmp-nvim-lsp' " Required
+    Plug 'L3MON4D3/LuaSnip'     " Required
+
+    Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
+
+    endif
 
 call plug#end()
 
@@ -203,47 +237,6 @@ endif
 " set colorscheme
 let g:everforest_better_performance = 1
 colorscheme everforest
-
-" emmet config
-
-" map emmet leader key to , so to use you press ,, to execute a command
-let g:user_emmet_leader_key=','
-
-" ale config
-
-" only use specified linters
-let g:ale_linters_explicit = 1
-let b:ale_linters = {
-            \ 'python': ['flake8', 'mypy'],
-            \ 'javascript': ['eslint'],
-            \ 'bash': ['shellcheck'],
-            \ 'sh': ['shellcheck'],
-            \ }
-
-let b:ale_python_flake8_use_global = 1
-let b:ale_python_mypy_use_global = 1
-let b:ale_python_black_executable = 1
-
-" stop ALE messages showing as comments
-let g:ale_virtualtext_cursor = 0
-
-" set virtual environment names
-let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
-
-" set line length for flake8
-let g:ale_python_flake8_options = '--max-line-length=88'
-
-" fix files when you save them.
-let g:ale_fix_on_save = 1
-
-" set ALE fixers
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier'],
-\   'html': ['prettier'],
-\   'css': ['prettier'],
-\   'python': ['black', 'autoflake'],
-\}
 
 " todo.txt config for all .txt files in notes folder
 autocmd BufNewFile,BufRead $HOME/notes/**.txt setlocal filetype=todo
