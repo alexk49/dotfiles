@@ -217,6 +217,7 @@ let b:ale_linters = {
             \ 'python': ['flake8', 'mypy'],
             \ 'javascript': ['eslint'],
             \ 'bash': ['shellcheck'],
+            \ 'sh': ['shellcheck'],
             \ }
 
 let b:ale_python_flake8_use_global = 1
