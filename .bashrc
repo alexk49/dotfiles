@@ -110,7 +110,7 @@ alias l.="ls -d .* --color=auto"
 alias mp="mousepad"
 
 # short cuts for neovim
-alias nvi="nvim"
+alias nv="nvim"
 alias vi="vim"
 
 # get path
@@ -159,7 +159,7 @@ docs () {
         done
 
         # /* after variable as otherwise it treats the /* as a literal path
-        grep --color=auto -r -E "$search_query" "$docs_dir"/* 
+        grep --color=auto -r -E "$search_query" "$docs_dir"/*
     fi
 }
 
@@ -168,7 +168,7 @@ mcd () {
     # p switch makes parent directories if they don't exist
     # v gives verbosity
     mkdir -p -v "$1"
-    cd "$1" || exit 
+    cd "$1" || exit
 }
 
 
