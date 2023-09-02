@@ -48,7 +48,10 @@ umask 0002
 # paths
 # ====
 
-export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/go/bin"
+# install ruby gems to ~/gems
+export GEM_HOME="$HOME/gems"
+
+export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/go/bin:$HOME/gems/bin"
 
 # ===============
 # todo.txt config
