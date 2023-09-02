@@ -29,7 +29,7 @@ for file in "${dotfiles[@]}"; do
     org_file_path="$HOME/$file"
 
     new_file_path="$dotfiles_dir/$file"
-    
+
     if [[ -e "$org_file_path" ]]; then
         echo "$file already exists"
         check_backup_dir
@@ -47,7 +47,12 @@ done
 org_vim_folder="$HOME/.vim"
 windows_vim_folder="$HOME/vimfiles"
 
+org_nvim_folder="$HOME/.config/nvim"
+windows_nvim_folder="$HOME/AppData/Local/nvim"
+
 new_vim_folder="$dotfiles_dir/vim"
+
+new_nvim_folder="$dotfiles_dir/nvim"
 
 if [[ -d "$org_vim_folder" ]]; then
     echo "vim folder already exists"
@@ -58,8 +63,19 @@ else
     echo "vim folder does not exist"
 fi
 
+if [[ -d "$org_nvim_folder" ]]; then
+    echo "nvim folder already exists"
+    check_backup_dir
+    echo
+    mv -v --backup=t "$org_nvim_folder" "$backup_dir"
+else
+    echo "nvim folder does not exist"
+fi
+
 echo
+
 ln -vs "$new_vim_folder" "$org_vim_folder"
+ln -vs "$new_nvim_folder" "$org_nvim_folder"
 
 # check if running windows
 if [[ "$OSTYPE" != "linux-gnu" ]]; then
@@ -71,7 +87,14 @@ if [[ "$OSTYPE" != "linux-gnu" ]]; then
     else
         echo "windows vim folder does not exist"
     fi
-    
+
+    if [[ -d "$windows_nvim_folder" ]]; then
+        echo "nvim windows folder exists"
+        check_backup_dir
+        echo
+        mv -v --backup=t "$windows_nvim_folder" "$backup_dir"
+    fi
     echo
     ln -vs "$new_vim_folder" "$windows_vim_folder"
+    ln -vs "$new_nvim_folder" "$windows_nvim_folder"
 fi
