@@ -104,8 +104,8 @@ set showmode
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
-" set seperate folder for swap files
-let tmp_dir = expand('~/.vim/tmp')
+" set seperate folder for swap and backup files
+let tmp_dir = expand('~/.vim/tmp//')
 
 if !isdirectory(tmp_dir)
     call mkdir(tmp_dir, "p", 0700)
@@ -113,6 +113,8 @@ endif
 
 set swapfile
 let &directory=tmp_dir
+
+let &backupdir=tmp_dir
 
 " protect against crash-during-write
 set writebackup
@@ -124,11 +126,15 @@ set nobackup
 set backupcopy=auto
 
 if has("persistent_undo")
+    " make undo dir if it doesn't exist
+    let target_path = expand('~/.vim/undos//')
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
     " persist the undo tree for each file
-    let &undodir=tmp_dir
+    let &undodir=target_path
     set undofile
 endif
-
 
 " ====================
 " status line settings
