@@ -18,3 +18,4 @@ logs
 
 vim/tmp
 vim/undos
+nvim/undos
