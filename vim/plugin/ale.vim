@@ -4,7 +4,10 @@
 let g:ale_linters_explicit = 1
 let b:ale_linters = {
             \ 'python': ['flake8', 'mypy'],
-            \ 'javascript': ['eslint'],
+            \ 'javascript': ['standard'],
+            \ 'html': ['tidy'],
+            \ 'css': ['stylelint'],
+            \ 'xml': ['xmllint'],
             \ 'bash': ['shellcheck'],
             \ 'sh': ['shellcheck'],
             \ }
@@ -22,14 +25,14 @@ let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
 " set line length for flake8
 let g:ale_python_flake8_options = '--max-line-length=88'
 
-" fix files when you save them.
-let g:ale_fix_on_save = 1
-
 " set ALE fixers
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier'],
+\   'javascript': ['prettier', 'standard'],
 \   'html': ['prettier'],
 \   'css': ['prettier'],
 \   'python': ['black', 'autoflake'],
 \}
+
+" fix files when you save them.
+let g:ale_fix_on_save = 1
