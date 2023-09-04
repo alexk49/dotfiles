@@ -1,6 +1,10 @@
 # this sets makes vim commands usable on command line
 set -o vi
 
+#export TERM="screen-256color"
+if [[ $TERM == xterm ]]; then
+    TERM=xterm-256color
+fi
 # set vim as default editor
 EDITOR=vim; export EDITOR
 
