@@ -98,9 +98,6 @@ set smarttab
 " this will make vim wrap text on word rather than char
 set linebreak
 
-" show the mode you are on the last line
-set showmode
-
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
@@ -233,9 +230,6 @@ if has('nvim')
 
     " shortcuts for writing html
     Plug 'mattn/emmet-vim'
-    " only enable for html and css files
-    let g:user_emmet_install_global = 0
-    autocmd FileType html,css EmmetInstall
 
     " async background tasks, needed for markdown preview
     Plug 'tpope/vim-dispatch'

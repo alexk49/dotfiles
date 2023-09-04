@@ -14,7 +14,8 @@ let b:ale_linters = {
 
 let b:ale_python_flake8_use_global = 1
 let b:ale_python_mypy_use_global = 1
-let b:ale_python_black_executable = 1
+let b:ale_python_black_use_global = 1
+let b:ale_python_autoflake_use_global = 1
 
 " stop ALE messages showing as comments
 let g:ale_virtualtext_cursor = 0
