@@ -13,11 +13,17 @@ set mouse=a
 " configure backspace to work like a backspace
 set backspace=eol,start,indent
 
+" set default encoding
+set encoding=utf-8
+
+" set default file format endings
+set fileformats=unix,dos,mac
+
 " make vim paste from external programs with just p
 set clipboard=unnamed
 
 " when you search for a file, search through every sub directory
-set path+=**
+set path+=.,**
 
 " automatically change directory to currently open file
 set autochdir
@@ -31,6 +37,9 @@ set splitbelow
 " display all matching files when tab complete
 set wildmenu
 
+" ignore case on wildmenu
+set wildignorecase
+
 " press :b <tab> to search through current buffer list
 " can also use :<tab> to search through commands
 set wildchar=<Tab> wildmode=full
@@ -40,9 +49,6 @@ setglobal wildignore+=*.swp
 
 " allow switching of buffers without saving
 set hidden
-
-" auto increment with ctrl a or ctrl x with letters as well as numbers
-set nrformats+=alpha
 
 " file detection on
 filetype on
@@ -108,9 +114,9 @@ if !isdirectory(tmp_dir)
     call mkdir(tmp_dir, "p", 0700)
 endif
 
+" set swap files and backup files to tmp dir
 set swapfile
 let &directory=tmp_dir
-
 let &backupdir=tmp_dir
 
 " protect against crash-during-write
@@ -217,16 +223,10 @@ Plug 'tpope/vim-surround'
 " todo.txt highlights and shortcuts
 Plug 'freitass/todo.txt-vim'
 
-" fuzzy finder, check for latest version
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-" distraction free writing mode
-Plug 'junegunn/goyo.vim'
+" linters
+Plug 'dense-analysis/ale'
 
 if has('nvim')
-    " linters
-    Plug 'dense-analysis/ale'
 
     " shortcuts for writing html
     Plug 'mattn/emmet-vim'
