@@ -63,7 +63,7 @@ export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/go/bin:$HOME
 
 source "$HOME/scripts/todo_completion"
 export TODOTXT_DEFAULT_ACTION=ls
-alias td="$HOME/scripts/todo.sh -d $HOME/scripts/todo.cfg"
+alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
 
 # ============
 # set aliases
