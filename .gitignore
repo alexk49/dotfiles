@@ -6,6 +6,9 @@ venv
 *.swp
 .netrwhist
 
+# bak files
+.bak
+
 # windows nonsense
 .DS_Store
 .vscode
