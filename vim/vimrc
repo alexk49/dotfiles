@@ -94,7 +94,6 @@ set tabstop=4
 
 " Use space characters instead of tabs.
 set expandtab
-
 " indent a new line the same amount as line just typed
 set shiftwidth=4
 
@@ -223,10 +222,10 @@ Plug 'tpope/vim-surround'
 " todo.txt highlights and shortcuts
 Plug 'freitass/todo.txt-vim'
 
-" linters
-Plug 'dense-analysis/ale'
-
 if has('nvim')
+
+    " linters
+    Plug 'dense-analysis/ale'
 
     " shortcuts for writing html
     Plug 'mattn/emmet-vim'
