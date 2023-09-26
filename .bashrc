@@ -103,6 +103,8 @@ alias g="git"
 alias ga="git add"
 alias gc="git commit"
 alias gs="git status"
+alias gb="git branch"
+alias gd="git diff"
 
 # view simple one line git log
 alias gl="git log --oneline"
