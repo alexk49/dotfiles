@@ -145,31 +145,34 @@ if has("persistent_undo")
 endif
 
 " ====================
-" status line settings
+" light weight status line settings for vim
+" nvim just use airline
 " ====================
+if !has('nvim')
 
-" variables for current mode to be passed to status line
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ "\<C-V>" : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'R ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \ 't'  : 'Terminal ',
-       \}
+    " variables for current mode to be passed to status line
+    let g:currentmode={
+           \ 'n'  : 'NORMAL ',
+           \ 'v'  : 'VISUAL ',
+           \ 'V'  : 'V·Line ',
+           \ "\<C-V>" : 'V·Block ',
+           \ 'i'  : 'INSERT ',
+           \ 'R'  : 'R ',
+           \ 'Rv' : 'V·Replace ',
+           \ 'c'  : 'Command ',
+           \ 't'  : 'Terminal ',
+           \}
 
-" status line display
-set laststatus=2
-set statusline=
-set statusline+=\ %{toupper(g:currentmode[mode()])} " sets current mode using above function
-set statusline+=%F " shows the path to file
-set statusline+=%= " right indents the below
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\ line:%l\ col:%c " show current line and column
-set statusline+=\ End:%L
+    " status line display
+    set laststatus=2
+    set statusline=
+    set statusline+=\ %{toupper(g:currentmode[mode()])} " sets current mode using above function
+    set statusline+=%F " shows the path to file
+    set statusline+=%= " right indents the below
+    set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+    set statusline+=\ line:%l\ col:%c " show current line and column
+    set statusline+=\ End:%L
+endif
 
 " set dark background, mainly needed for gvim
 set background=dark
@@ -226,7 +229,8 @@ if has('nvim')
 
     " linters
     Plug 'dense-analysis/ale'
-
+    " status line
+    Plug 'vim-airline/vim-airline'
     " shortcuts for writing html
     Plug 'mattn/emmet-vim'
 
