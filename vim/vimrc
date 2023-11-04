@@ -226,6 +226,9 @@ Plug 'freitass/todo.txt-vim'
 " linters
 Plug 'dense-analysis/ale'
 
+" zen mode
+Plug 'junegunn/goyo.vim'
+
 if has('nvim')
 
     " shortcuts for writing html
