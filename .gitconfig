@@ -8,7 +8,7 @@
     path = ~/.gitconfig.local
 [core]
     editor = vim
-	excludesfile = ~/.gitignore
+	excludesfile = ~/dotfiles/.gitignore
 [init]
 	defaultBranch = main
 [color]
