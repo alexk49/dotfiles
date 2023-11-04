@@ -201,6 +201,12 @@ nnoremap <C-l> :noh<Return><Esc>
 vmap < <gv
 vmap > >gv
 
+" change window quickly
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+
 " remap vt to vertical terminal
 " this checks your in command mode first
 " and checks vt is the whole command before executing
