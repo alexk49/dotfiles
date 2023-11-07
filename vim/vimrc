@@ -202,10 +202,10 @@ vmap < <gv
 vmap > >gv
 
 " change window quickly
-nnoremap <C-H> <C-W>h
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
+nnoremap <M-h> <C-W>h
+nnoremap <M-j> <C-W>j
+nnoremap <M-k> <C-W>k
+nnoremap <M-l> <C-W>l
 
 " remap vt to vertical terminal
 " this checks your in command mode first
@@ -239,9 +239,9 @@ if has('nvim')
     " linters
     Plug 'dense-analysis/ale'
     " status line
-    
+
     Plug 'vim-airline/vim-airline'
-    
+
     " shortcuts for writing html
     Plug 'mattn/emmet-vim'
 
