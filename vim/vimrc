@@ -269,9 +269,13 @@ if has('termguicolors')
     set termguicolors
 endif
 
-" set colorscheme
-let g:everforest_better_performance = 1
-colorscheme everforest
+if exists('$HOME/.vimfiles/plugged/everforest')
+    " set colorscheme
+    let g:everforest_better_performance = 1
+    colorscheme everforest
+else
+    colorscheme desert
+endif
 
 " todo.txt config for all .txt files in notes folder
 autocmd BufNewFile,BufRead $HOME/notes/**.txt setlocal filetype=todo
