@@ -1,10 +1,13 @@
-# this sets makes vim commands usable on command line
+#!/bin/bash
+
+# this makes vim commands usable on command line
 set -o vi
 
 #export TERM="screen-256color"
-if [[ $TERM == xterm ]]; then
+if [[ "$TERM" == xterm ]]; then
     TERM=xterm-256color
 fi
+
 # set vim as default editor
 EDITOR=vim; export EDITOR
 
@@ -145,6 +148,22 @@ alias notes="cd $HOME/notes"
 # =============
 # set functions
 # =============
+
+svenv () {
+    # source virtual environment
+    linux_venv=".venv/bin/activate"
+    windows_venv=".venv/scripts/activate"
+
+    if [[ -f "$linux_venv" ]]; then
+        echo "activating venv"
+        source "$linux_venv"
+    elif [[ -f "$windows_venv" ]]; then
+        echo "activating venv"
+        source "$windows_venv"
+    else
+        echo "No .venv found"
+    fi
+}
 
 docs () {
     docs_dir="$HOME/notes/docs"
