@@ -1,17 +1,6 @@
 " ale config
 
-" only use specified linters
-let g:ale_linters_explicit = 1
-let b:ale_linters = {
-            \ 'python': ['flake8', 'mypy'],
-            \ 'javascript': ['standard'],
-            \ 'html': ['tidy'],
-            \ 'css': ['stylelint'],
-            \ 'xml': ['xmllint'],
-            \ 'bash': ['shellcheck'],
-            \ 'sh': ['shellcheck'],
-            \ }
-
+" use global installations of linters
 let b:ale_python_flake8_use_global = 1
 let b:ale_python_mypy_use_global = 1
 let b:ale_python_black_use_global = 1
@@ -24,7 +13,27 @@ let g:ale_virtualtext_cursor = 0
 let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
 
 " set line length for flake8
-let g:ale_python_flake8_options = '--max-line-length=88'
+let g:ale_python_flake8_options = '--max-line-length=120'
+
+" ignore es501
+let g:ale_python_flake_options = 'ignore = E501'
+
+" set max line length for black
+let g:ale_python_black_options='--line-length=120'
+
+" only use specified linters
+let g:ale_linters_explicit = 1
+
+let b:ale_linters = {
+            \ 'python': ['flake8', 'mypy'],
+            \ 'javascript': ['standard'],
+            \ 'html': ['tidy'],
+            \ 'css': ['stylelint'],
+            \ 'xml': ['xmllint'],
+            \ 'bash': ['shellcheck'],
+            \ 'sh': ['shellcheck'],
+            \ }
+
 
 " set ALE fixers
 let g:ale_fixers = {
