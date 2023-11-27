@@ -136,7 +136,7 @@ alias etd="$EDITOR $HOME/notes/todo.txt"
 # ===================
 
 # howto script
-alias ht="$HOME/repos/ht-cli/howto.sh"
+alias ht="$HOME/repos/howto.txt/howto.sh"
 
 # task journal script
 alias tj="$HOME/repos/task-journal/task-journal.sh"
@@ -166,7 +166,7 @@ svenv () {
 }
 
 docs () {
-    docs_dir="$HOME/notes/docs"
+    docs_dir="$HOME/repos/docs"
 
     if [[ "$#" == 0 ]]; then
         # no additional args given just cd dir
