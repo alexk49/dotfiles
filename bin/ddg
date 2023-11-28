@@ -1,0 +1,28 @@
+#!/bin/bash
+
+root_url="https://duckduckgo.com/?q="
+
+search_query="$1"
+
+for arg in "$@"; do
+    # if arg is first arg then do nothing
+    if [[ "$arg" == "$search_query" ]]; then
+        continue
+    fi
+
+    seperator='+'
+
+    # concatenate search query with seperator and new query string
+    search_query="$search_query$seperator$arg"
+done
+
+
+search_url="$root_url$search_query"
+
+if [[ "$OSTYPE" == "msys" ]]; then
+    # os type for git bash on windows is msys
+    # this requires start
+    start firefox "$search_url"
+else
+    firefox "$search_url"
+fi
