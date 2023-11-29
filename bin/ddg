@@ -26,5 +26,5 @@ if [[ "$OSTYPE" == "msys" ]]; then
     # this requires start
     start firefox "$search_url"
 else
-    firefox % "$search_url"
+    firefox "$search_url" &
 fi
