@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# quickly search duck duck go
+# with args as search query
 root_url="https://duckduckgo.com/?q="
 
 search_query="$1"
