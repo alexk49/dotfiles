@@ -143,6 +143,23 @@ alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
 # set functions
 # =============
 
+svenv () {
+    # source virtual environment
+    # as long as venv is named .venv
+    linux_venv=".venv/bin/activate"
+    windows_venv=".venv/scripts/activate"
+
+    if [[ -f "$linux_venv" ]]; then
+        echo "activating venv"
+        source "$linux_venv"
+    elif [[ -f "$windows_venv" ]]; then
+        echo "activating venv"
+        source "$windows_venv"
+    else
+        echo "No .venv found"
+    fi
+}
+
 mcd () {
     # make and change directory
     # p switch makes parent directories if they don't exist
