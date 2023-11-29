@@ -55,18 +55,8 @@ umask 0002
 # paths
 # ====
 
-# install ruby gems to ~/gems
-export GEM_HOME="$HOME/gems"
+export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin"
 
-export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/go/bin:$HOME/gems/bin"
-
-# ===============
-# todo.txt config
-# ===============
-
-source "$HOME/scripts/todo_completion"
-export TODOTXT_DEFAULT_ACTION=ls
-alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
 
 # ============
 # set aliases
@@ -118,11 +108,9 @@ alias gd="git diff"
 # list hidden dirs
 alias l.="ls -d .* --color=auto"
 
-# shortcut for mousepad on xubuntu
-alias mp="mousepad"
-
-# short cuts for neovim
+# shortcuts for neovim
 alias nv="nvim"
+
 alias vi="vim"
 
 # get path
@@ -141,55 +129,19 @@ alias ht="$HOME/repos/howto.txt/howto.sh"
 # task journal script
 alias tj="$HOME/repos/task-journal/task-journal.sh"
 
-alias qn="$HOME/dotfiles/bin/quick-note.sh"
-
 alias notes="cd $HOME/notes"
+
+# ===============
+# todo.txt config
+# ===============
+
+source "$HOME/scripts/todo_completion"
+export TODOTXT_DEFAULT_ACTION=ls
+alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
 
 # =============
 # set functions
 # =============
-
-svenv () {
-    # source virtual environment
-    linux_venv=".venv/bin/activate"
-    windows_venv=".venv/scripts/activate"
-
-    if [[ -f "$linux_venv" ]]; then
-        echo "activating venv"
-        source "$linux_venv"
-    elif [[ -f "$windows_venv" ]]; then
-        echo "activating venv"
-        source "$windows_venv"
-    else
-        echo "No .venv found"
-    fi
-}
-
-docs () {
-    docs_dir="$HOME/repos/docs"
-
-    if [[ "$#" == 0 ]]; then
-        # no additional args given just cd dir
-        cd "$docs_dir"
-    else
-        # loop through passed on arguments as search
-        search_query="$1"
-
-        seperator='|'
-
-        for arg in "$@"; do
-            # if arg is first arg then do nothing
-            if [[ "$arg" == "$search_query" ]]; then
-                continue
-            fi
-            # concatenate search query with seperator and new query string
-            search_query="$search_query$seperator$arg"
-        done
-
-        # /* after variable as otherwise it treats the /* as a literal path
-        grep --color=auto -r -E "$search_query" "$docs_dir"/*
-    fi
-}
 
 mcd () {
     # make and change directory
@@ -225,7 +177,3 @@ fcd () {
 
 # addded time and removed home machine name from prompt
 PS1="\[\e[2;37m\](\A)\[\e[0m\] \[\e[01;32m\]\u\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\]$ "
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
