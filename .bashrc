@@ -143,6 +143,17 @@ alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
 # set functions
 # =============
 
+docs () {
+    docs_dir="$HOME/repos/docs"
+
+    if [[ "$#" == 0 ]]; then
+        # no additional args given just cd dir
+        cd "$docs_dir"
+    else
+        # /* after variable as otherwise it treats the /* as a literal path
+        grep --color=auto -r -E "$@" "$docs_dir"/*
+    fi
+}
 svenv () {
     # source virtual environment
     # as long as venv is named .venv
