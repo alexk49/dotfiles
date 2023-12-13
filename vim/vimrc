@@ -195,17 +195,12 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 " quickly remove highlights with double tap esc
 nnoremap <Esc><Esc> :noh<Return><Esc>
 
-nnoremap <C-l> :noh<Return><Esc>
+" quickly remove highlights with double tap esc
+nnoremap <M-l> :noh<Return><Esc>
 
 " Change indent continuously
 vmap < <gv
 vmap > >gv
-
-" change window quickly
-nnoremap <M-h> <C-W>h
-nnoremap <M-j> <C-W>j
-nnoremap <M-k> <C-W>k
-nnoremap <M-l> <C-W>l
 
 " remap vt to vertical terminal
 " this checks your in command mode first
@@ -230,6 +225,9 @@ Plug 'tpope/vim-surround'
 
 " todo.txt highlights and shortcuts
 Plug 'freitass/todo.txt-vim'
+
+" switch panes with tmux with same keys
+Plug 'christoomey/vim-tmux-navigator'
 
 " zen mode
 Plug 'junegunn/goyo.vim'
@@ -279,3 +277,6 @@ endif
 
 " todo.txt config for all .txt files in notes folder
 autocmd BufNewFile,BufRead $HOME/notes/**.txt setlocal filetype=todo
+
+" set shell syntax for .bats test files
+autocmd BufNewFile,BufRead *.bats setlocal filetype=sh
