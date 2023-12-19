@@ -59,8 +59,7 @@ fi
 # paths
 # ====
 
-export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin"
-
+export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/local/bin"
 
 # ============
 # set aliases
@@ -161,7 +160,7 @@ docs () {
 svenv () {
     # source virtual environment
     # as long as venv is named .venv
-    linux_venv=".venv/bin/activate"
+    jinux_venv=".venv/bin/activate"
     windows_venv=".venv/scripts/activate"
 
     if [[ -f "$linux_venv" ]]; then
@@ -208,4 +207,4 @@ fcd () {
 # ================
 
 # addded time and removed home machine name from prompt
-PS1="\[\e[2;37m\](\A)\[\e[0m\] \[\e[01;32m\]\u\[\e[0m\]:\[\e[01;34m\]\w\[\e[0m\]$ "
+PS1="\[\e[2;37m\](\A)\[\e[0m\] \[\e[01;32m\]\u\[\e[0m\]@\h:\[\e[01;34m\]\w\[\e[0m\]$ "
