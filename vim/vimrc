@@ -232,19 +232,19 @@ Plug 'christoomey/vim-tmux-navigator'
 " zen mode
 Plug 'junegunn/goyo.vim'
 
+" linters
+Plug 'dense-analysis/ale'
+" status line
+
+Plug 'vim-airline/vim-airline'
+
+" shortcuts for writing html
+Plug 'mattn/emmet-vim'
+
+" async background tasks, needed for markdown preview
+Plug 'tpope/vim-dispatch'
+
 if has('nvim')
-
-    " linters
-    Plug 'dense-analysis/ale'
-    " status line
-
-    Plug 'vim-airline/vim-airline'
-
-    " shortcuts for writing html
-    Plug 'mattn/emmet-vim'
-
-    " async background tasks, needed for markdown preview
-    Plug 'tpope/vim-dispatch'
 
     " LSP Support
     Plug 'neovim/nvim-lspconfig'             " Required
