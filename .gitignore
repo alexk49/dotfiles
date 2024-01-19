@@ -20,5 +20,6 @@ __pycache__
 logs
 
 vim/tmp
+vim/view
 vim/undos
 nvim/undos
