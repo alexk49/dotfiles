@@ -20,7 +20,7 @@ set encoding=utf-8
 set fileformats=unix,dos,mac
 
 " make vim paste from external programs with just p
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " when you search for a file, search through every sub directory
 set path+=.,**
@@ -280,3 +280,7 @@ autocmd BufNewFile,BufRead $HOME/notes/**.txt,**/*howto*.txt setlocal filetype=t
 
 " set shell syntax for .bats test files
 autocmd BufNewFile,BufRead *.bats setlocal filetype=sh
+
+" set automatic saving of folds
+autocmd BufWinLeave * mkview
+autocmd BufWinEnter * silent loadview
