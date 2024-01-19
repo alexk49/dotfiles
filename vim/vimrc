@@ -20,7 +20,7 @@ set encoding=utf-8
 set fileformats=unix,dos,mac
 
 " make vim paste from external programs with just p
-set clipboard=unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 " when you search for a file, search through every sub directory
 set path+=.,**
