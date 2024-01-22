@@ -13,3 +13,8 @@
 	defaultBranch = main
 [color]
 	ui = auto
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+[difftool]
+  prompt = false
