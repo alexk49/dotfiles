@@ -282,5 +282,5 @@ autocmd BufNewFile,BufRead $HOME/notes/**.txt,**/*howto*.txt setlocal filetype=t
 autocmd BufNewFile,BufRead *.bats setlocal filetype=sh
 
 " set automatic saving of folds
-autocmd BufWinLeave ?* mkview
-autocmd BufWinEnter ?* silent loadview
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
