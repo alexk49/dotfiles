@@ -160,7 +160,7 @@ docs () {
 svenv () {
     # source virtual environment
     # as long as venv is named .venv
-    jinux_venv=".venv/bin/activate"
+    linux_venv=".venv/bin/activate"
     windows_venv=".venv/scripts/activate"
 
     if [[ -f "$linux_venv" ]]; then
