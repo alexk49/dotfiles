@@ -6,6 +6,8 @@
     helper = manager
 [include]
     path = ~/.gitconfig.local
+[includeIf "gitdir:~/work-repos/**"]
+    path = ~/.gitconfig.work
 [core]
     editor = vim
 	excludesfile = ~/dotfiles/.gitignore
