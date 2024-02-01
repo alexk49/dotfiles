@@ -2,8 +2,6 @@
 [user]
 	name = alexk49
 	email = alexcode9@mailbox.org
-[credential]
-    helper = manager
 [include]
     path = ~/.gitconfig.local
 [includeIf "gitdir:~/work-repos/**"]
