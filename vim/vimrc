@@ -146,33 +146,30 @@ endif
 
 " ====================
 " light weight status line settings for vim
-" nvim just use airline
 " ====================
-if !has('nvim')
 
-    " variables for current mode to be passed to status line
-    let g:currentmode={
-           \ 'n'  : 'NORMAL ',
-           \ 'v'  : 'VISUAL ',
-           \ 'V'  : 'V·Line ',
-           \ "\<C-V>" : 'V·Block ',
-           \ 'i'  : 'INSERT ',
-           \ 'R'  : 'R ',
-           \ 'Rv' : 'V·Replace ',
-           \ 'c'  : 'Command ',
-           \ 't'  : 'Terminal ',
-           \}
+" variables for current mode to be passed to status line
+let g:currentmode={
+       \ 'n'  : 'NORMAL ',
+       \ 'v'  : 'VISUAL ',
+       \ 'V'  : 'V·Line ',
+       \ "\<C-V>" : 'V·Block ',
+       \ 'i'  : 'INSERT ',
+       \ 'R'  : 'R ',
+       \ 'Rv' : 'V·Replace ',
+       \ 'c'  : 'Command ',
+       \ 't'  : 'Terminal ',
+       \}
 
-    " status line display
-    set laststatus=2
-    set statusline=
-    set statusline+=\ %{toupper(g:currentmode[mode()])} " sets current mode using above function
-    set statusline+=%F " shows the path to file
-    set statusline+=%= " right indents the below
-    set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-    set statusline+=\ line:%l\ col:%c " show current line and column
-    set statusline+=\ End:%L
-endif
+" status line display
+set laststatus=2
+set statusline=
+set statusline+=\ %{toupper(g:currentmode[mode()])} " sets current mode using above function
+set statusline+=%F " shows the path to file
+set statusline+=%= " right indents the below
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ line:%l\ col:%c " show current line and column
+set statusline+=\ End:%L
 
 " set dark background, mainly needed for gvim
 set background=dark
@@ -234,9 +231,6 @@ Plug 'junegunn/goyo.vim'
 
 " linters
 Plug 'dense-analysis/ale'
-" status line
-
-Plug 'vim-airline/vim-airline'
 
 " shortcuts for writing html
 Plug 'mattn/emmet-vim'
@@ -267,13 +261,13 @@ if has('termguicolors')
     set termguicolors
 endif
 
-if exists('$HOME/.vimfiles/plugged/everforest')
+try
     " set colorscheme
     let g:everforest_better_performance = 1
     colorscheme everforest
-else
+catch
     colorscheme desert
-endif
+endtry
 
 " todo.txt config for all .txt files in notes folder
 autocmd BufNewFile,BufRead $HOME/notes/**.txt,**/*howto*.txt setlocal filetype=todo
