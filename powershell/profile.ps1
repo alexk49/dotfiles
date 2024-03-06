@@ -1,3 +1,13 @@
+<#. powershell profile is by default stored in:
+
+$env:USERPROFILE\Documents\WindowsPowershell\profile.ps1
+
+Add this line to that file:
+
+. "$HOME\dotfiles\powershell\profile.ps1"
+
+#>
+
 Set-Alias -Name unzip -Value Expand-Archive
 Set-Alias -Name zip -Value Compress-Archive
 Set-Alias -Name touch -Value New-Item
