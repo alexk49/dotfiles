@@ -1,0 +1,211 @@
+#!/bin/bash
+
+# script for note taking and task tracking
+# to be used alongside terminal editor
+
+# will append a time stamp as an entry heading
+# unless the -e switch is used
+
+# syncs with todo.txt file and reminders file
+# rem file must have date stamps in due:yyyy-mm-dd
+
+# taken the most useful bits of https://github.com/alexk49/task-journal
+# and modified slightly
+
+usage () {
+    cat << _EOF_
+
+Quick notes - n
+
+create file or new entry:
+n
+
+view file in editor:
+n -e
+
+view finished tasks over past number of days:
+n -f number-of-days
+n -f 3
+
+view today file and todo.txt file as day review:
+n -d
+n -dr
+
+view reminders file:
+n -r
+n -rem
+
+view todo.txt file:
+n -td
+
+view yesterday's entry:
+n -y
+
+_EOF_
+}
+
+
+# set vim as default editor
+EDITOR=vim; export EDITOR
+
+NOTES_FOLDER="$HOME/notes"
+REMINDERS_FILE="$NOTES_FOLDER/reminders.txt"
+TODO_FILE="$NOTES_FOLDER/todo.txt"
+
+check_reminders_file_exists() {
+    if [[ ! -e "$REMINDERS_FILE" ]]; then
+        touch "$REMINDERS_FILE"
+    fi
+}
+
+check_for_reminders () {
+    # loop through reminders file
+    # if due date is today, then add to reminder to newly created file
+
+    # filepath is file reminders will be moved to
+
+    filepath="$1"
+
+    linecount=0
+
+    while IFS="" read -r line || [[ -n "$line" ]]
+    do
+        linecount=$((++linecount))
+
+        if [[ "$line" =~ due:$today ]]; then
+            echo "$line"
+            # item due today
+            item="$linecount"
+            echo "$linecount"
+
+            sed -i -E "/$entry/a $line" "$filepath"
+
+            # delete from original
+            sed -i "$item"d "$REMINDERS_FILE"
+        fi
+    done < "$REMINDERS_FILE"
+}
+
+
+get_previous_entry () {
+    # takes entry date as arg and sets previous_filepath
+    # as the first existing previous file path
+
+    current_entry="$1"
+    count=1
+    while [[ "$count" -le 21 ]]; do
+        previous=$(date --date="${current_entry} -${count} day" "+%Y-%m-%d")
+
+        # format will be yyyy-mm-dd-jrnl.txt
+        previous_filename="$previous.txt"
+
+        previous_filepath="$NOTES_FOLDER/$previous_filename"
+
+        if [[ -f "$previous_filepath" ]]; then
+            return 0
+        else
+            count=$((count + 1))
+        fi
+    done
+
+    # if no file found return nothing
+    echo "No previous entry found within last 3 weeks"
+}
+
+
+view_finished_tasks () {
+    # view all tasks marked as completed in notes
+    # assumes same syntax as todo.txt:
+    # x completed task
+
+    num_days="$1"
+
+    if [[ -z "$num_days" ]]; then
+        num_days=1
+    fi
+
+    # change dir to notes_folder first
+    # so that grep output only includes base file names
+    cd "$NOTES_FOLDER"
+
+    while [[ "$num_days" > 0 ]]; do
+        entry_date=$(date -d "-${num_days} day" '+%Y-%m-%d')
+
+        entry_file="$entry_date.txt"
+
+        if [[ -e "$entry_file" ]]; then
+            grep --color=auto -E "^x\s" "$entry_file"
+        fi
+
+        num_days=$((num_days - 1))
+    done
+}
+
+
+today=$(date +"%Y-%m-%d")
+
+today_file_path="$NOTES_FOLDER/$today.txt"
+
+time_stamp=$(date +"%Y-%m-%d %T")
+
+entry="# $time_stamp"
+
+while [[ -n "$1" ]]; do
+    case "$1" in
+        -e | -edit)
+        "$EDITOR" "$today_file_path"
+        exit
+        ;;
+        -f | -finished | --finished)
+        num_days="$2"
+        view_finished_tasks "$num_days"
+        exit
+        ;;
+        -d | -dr | --dayreview)
+        "$EDITOR" -O "$today_file_path" "$TODO_FILE"
+        exit
+        ;;
+        -h | -help)
+        usage
+        exit
+        ;;
+        -r | -rem | -reminders)
+        "$EDITOR" "$REMINDERS_FILE"
+        exit
+        ;;
+        -td | -todo)
+        "$EDITOR" "$TODO_FILE"
+        exit
+        ;;
+        -y | -yesterday)
+        get_previous_entry "$today"
+
+        if [[ -e "$previous_filepath" ]]; then
+            "$EDITOR" "$previous_filepath"
+        fi
+        exit
+        ;;
+    esac
+    shift
+done
+
+if [[ ! -e "$today_file_path" ]]; then
+    # making new entry
+    echo "$entry" > "$today_file_path"
+
+    check_reminders_file_exists
+    check_for_reminders "$today_file_path"
+
+    get_previous_entry "$today"
+    # check previous entry when making new entry
+
+    if [[ -e "$previous_file_path" ]]; then
+        "$EDITOR" -O "$previous_file_path" "$today_file_path"
+        exit
+    fi
+else
+    # put new entry stamp at top of file
+    sed -i "1s/^/$entry\n\n/" "$today_file_path"
+fi
+
+"$EDITOR" "$today_file_path"
