@@ -274,10 +274,3 @@ autocmd BufNewFile,BufRead $HOME/notes/**.txt,**/*howto*.txt setlocal filetype=t
 
 " set shell syntax for .bats test files
 autocmd BufNewFile,BufRead *.bats setlocal filetype=sh
-
-if !has('nvim')
-    " set automatic saving of folds
-    " not compatible with nvim
-    autocmd BufWinLeave *.* mkview
-    autocmd BufWinEnter *.* silent loadview
-endif
