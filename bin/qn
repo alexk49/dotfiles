@@ -1,11 +1,15 @@
 #!/bin/bash
 
-# quick notes script
+# quick notes script for low effort note taking and task tracking
+
 # will append a time stamp as an entry heading
 # unless the -e switch is used
 
 # syncs with todo.txt file and reminders file
 # rem file must have date stamps in due:yyyy-mm-dd
+
+# taken the most useful bits of https://github.com/alexk49/task-journal
+# and modified slightly
 
 usage () {
     cat << _EOF_
