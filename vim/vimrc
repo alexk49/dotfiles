@@ -199,6 +199,9 @@ nnoremap <M-l> :noh<Return><Esc>
 vmap < <gv
 vmap > >gv
 
+" add time stamp with ts in normal mode
+nnoremap ts !!date "+\%Y-\%m-\%d \%H:\%M"<Return><Esc>
+
 " remap vt to vertical terminal
 " this checks your in command mode first
 " and checks vt is the whole command before executing
