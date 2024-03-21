@@ -1,6 +1,8 @@
 #!/bin/bash
 
+# wsid - what should i do
 # get random task from todo.txt file
+# and output to terminal
 
 TODO_FILE="$HOME/notes/todo.txt"
 
