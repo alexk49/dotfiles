@@ -73,10 +73,8 @@ check_for_reminders () {
         linecount=$((++linecount))
 
         if [[ "$line" =~ due:$today ]]; then
-            echo "$line"
             # item due today
             item="$linecount"
-            echo "$linecount"
 
             sed -i -E "/$entry/a $line" "$filepath"
 
@@ -144,7 +142,7 @@ view_finished_tasks () {
 
 today=$(date +"%Y-%m-%d")
 
-today_file_path="$NOTES_FOLDER/$today.txt"
+today_filepath="$NOTES_FOLDER/$today.txt"
 
 time_stamp=$(date +"%Y-%m-%d %T")
 
@@ -153,7 +151,7 @@ entry="# $time_stamp"
 while [[ -n "$1" ]]; do
     case "$1" in
         -e | -edit)
-        "$EDITOR" "$today_file_path"
+        "$EDITOR" "$today_filepath"
         exit
         ;;
         -f | -finished | --finished)
@@ -162,7 +160,7 @@ while [[ -n "$1" ]]; do
         exit
         ;;
         -d | -dr | --dayreview)
-        "$EDITOR" -O "$today_file_path" "$TODO_FILE"
+        "$EDITOR" -O "$today_filepath" "$TODO_FILE"
         exit
         ;;
         -h | -help)
@@ -189,23 +187,23 @@ while [[ -n "$1" ]]; do
     shift
 done
 
-if [[ ! -e "$today_file_path" ]]; then
+if [[ ! -e "$today_filepath" ]]; then
     # making new entry
-    echo "$entry" > "$today_file_path"
+    echo "$entry" > "$today_filepath"
 
     check_reminders_file_exists
-    check_for_reminders "$today_file_path"
+    check_for_reminders "$today_filepath"
 
     get_previous_entry "$today"
     # check previous entry when making new entry
 
-    if [[ -e "$previous_file_path" ]]; then
-        "$EDITOR" -O "$previous_file_path" "$today_file_path"
+    if [[ -e "$previous_filepath" ]]; then
+        "$EDITOR" -O "$previous_filepath" "$today_filepath"
         exit
     fi
 else
     # put new entry stamp at top of file
-    sed -i "1s/^/$entry\n\n/" "$today_file_path"
+    sed -i "1s/^/$entry\n\n/" "$today_filepath"
 fi
 
-"$EDITOR" "$today_file_path"
+"$EDITOR" "$today_filepath"
