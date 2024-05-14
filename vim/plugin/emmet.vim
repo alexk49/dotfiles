@@ -9,7 +9,7 @@ let g:user_emmet_install_global = 0
 autocmd BufNewFile,BufRead *.html,*.css EmmetInstall
 
 let g:user_emmet_settings = {
-\  'variables': {'lang': 'ja'},
+\  'variables': {'lang': 'en'},
 \  'html': {
 \    'default_attributes': {
 \      'option': {'value': v:null},
