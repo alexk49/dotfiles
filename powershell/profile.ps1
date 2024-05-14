@@ -22,9 +22,14 @@ function ga {
     & git add $args
 }
 
-function gcom {
+<# as gc is alias for get-content, which is already aliased with cat
+this can be overwritten for gc.
+set the function and then alias for the function to fully overwrite #>
+function git-commit {
     & git commit $args
 }
+
+Set-Alias -Name gc -Value git-commit -Option AllScope -Force
 
 function gd {
     & git diff $args
@@ -32,10 +37,6 @@ function gd {
 
 function gb {
     & git branch $args
-}
-
-function glg {
-    & git log --oneline $args
 }
 
 function gs {
