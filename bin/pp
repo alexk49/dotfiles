@@ -24,7 +24,7 @@ downloadWordList () {
     if [[ ! -e "$HOME/.local" ]]; then
         mkdir "$HOME/.local"
     fi
-    curl -o "$WORD_FILE" https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt || echo "word list not found at $WORD_FILE, and unable to download word list" && exit 1
+    curl -o "$WORD_FILE" https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt || { echo "word list not found at $WORD_FILE, and unable to download word list"; exit 1; }
 }
 
 getDigit () {
