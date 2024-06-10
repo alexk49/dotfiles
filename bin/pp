@@ -24,6 +24,7 @@ downloadWordList () {
     if [[ ! -e "$HOME/.local" ]]; then
         mkdir "$HOME/.local"
     fi
+
     curl -o "$WORD_FILE" https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt || { echo "word list not found at $WORD_FILE, and unable to download word list"; exit 1; }
 }
 
@@ -44,6 +45,16 @@ appendNumbers () {
             digits+=$(shuf --random-source=/dev/random -i 0-9 -n1)
         }
         password+="$digits"
+    fi
+}
+
+cleanPassword () {
+    # if last char is whitespace then remove it
+    password="$1"
+    if [[ "${password: -1}" == " " ]]; then
+        echo "$password"
+        password="${password:0:-1}"
+        echo "$password"
     fi
 }
 
@@ -98,25 +109,22 @@ for ((i=0; i<"$numWords"; i++)) {
 
 }
 
-cleanPassword () {
-    # if last char is whitespace then remove it
-    password="$1"
-    if [[ "${password: -1}" == " " ]]; then
-        echo "$password"
-        password="${password:0:-1}"
-        echo "$password"
-    fi
-}
 
 appendNumbers "$numOfNumbers"
 
 cleanPassword "$password"
 
-if [[ "$clipboard" ]] && [[ -x "$(command -v /usr/bin/xclip)" ]]; then
-    # use printf as otherwise echo adds on whitespace
-    printf "%s" "$password" | /usr/bin/xclip -selection clipboard
-else
-    echo "unable to copy password to clipboard"
+if [[ "$clipboard" ]]; then
+    if [[ -x "$(command -v /usr/bin/xclip)" ]]; then
+        # use printf as otherwise echo adds on whitespace
+        printf "%s" "$password" | /usr/bin/xclip -selection clipboard
+    # /dev/clipboard is not recognised by command -v
+    elif [[ -e "/dev/clipboard" ]]; then
+        # use printf as otherwise echo adds on whitespace
+        printf "%s" "$password" > /dev/clipboard
+    else
+        echo "unable to copy password to clipboard"
+    fi
 fi
 
 echo "$password"
