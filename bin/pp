@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# pp - password please
+# get password from eff word list
+# explained here: https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
+
+# 5 random dice throws then get corresponding word
+# repeats 6 times unless different number specified by user
+
+
+check_if_number () {
+    # check numWords arg is an actual number
+    # if not, reset to default
+    if [[ ! "$1" =~ ^[0-9]+$ ]]; then
+        echo "Arg for number of words must be a valid number. Setting to default value of 6" >&2
+        numWords=6
+    fi
+}
+
+downloadWordList () {
+    echo "downloading word list"
+    curl -o /etc/word-list.txt https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt
+}
+
+getDigit () {
+    # get random digit between 1 and 6
+    shuf --random-source=/dev/random -i 1-6 -n1
+}
+
+getWord() {
+    # search for digit code in word file and get word
+    # word file is tab delimited:
+    # first field is digits and 2 field is word
+    grep "$digits" "$WORD_FILE" | cut -d$'\t' -f2
+}
+
+# default values for command line args
+numWords=6
+separator="-"
+
+while [[ -n "$1" ]]; do
+    case "$1" in
+        -s | -separator)
+            separator="$2"
+            ;;
+        -w | -words)
+            numWords="$2"
+            check_if_number "$numWords"
+            ;;
+    esac
+    shift
+done
+
+
+WORD_FILE="/etc/word-list.txt"
+
+if [[ ! -e "$WORD_FILE" ]]; then
+    echo "$WORD_FILE not found"
+    downloadWordList
+fi
+
+# loop for given number of words
+for ((i=0; i<"$numWords"; i++)) {
+    # get five digits to choose each word
+    for ((j=0; j<5; j++)) {
+        digits+=$(getDigit)
+    }
+    password+=$(getWord)
+
+    # add separator between words, except for last word
+    if [[ "$i" -ne $(("$numWords" - 1)) ]]; then
+        password+="$separator"
+    fi
+
+    # reset digits variable before getting next word
+    digits=""
+}
+
+echo "$password"
