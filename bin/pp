@@ -8,7 +8,7 @@
 # repeats 6 times unless different number specified by user
 
 
-check_if_number () {
+checkIfNumber () {
     # check numWords arg is an actual number
     # if not, reset to default
     if [[ ! "$1" =~ ^[0-9]+$ ]]; then
@@ -27,10 +27,6 @@ downloadWordList () {
     curl -o "$WORD_FILE" https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt || { echo "word list not found at $WORD_FILE, and unable to download word list"; exit 1; }
 }
 
-getDigit () {
-    # get random digit between 1 and 6
-    shuf --random-source=/dev/random -i 1-6 -n1
-}
 
 getWord() {
     # search for digit code in word file and get word
@@ -43,12 +39,11 @@ appendNumbers () {
     # append given number of numbers to password
     digits=""
 
-    counter=0
-    while [[ "$numOfNumbers" -ne 0 && "$counter" < "$numOfNumbers" ]]; do
-        digits+=$(getDigit)
-        ((counter++))
-    done
-
+    if [[ "$numOfNumbers" -ne 0 ]]; then
+        for ((i=0; i < "$numOfNumbers"; i++)) {
+            digits+=$(shuf --random-source=/dev/random -i 1-9 -n1)
+        }
+    fi
     password+="$digits"
 }
 
@@ -61,14 +56,14 @@ while [[ -n "$1" ]]; do
     case "$1" in
         -n | -numbers)
             numOfNumbers="$2"
-            check_if_number "$numOfNumbers" || numOfNumbers=0
+            checkIfNumber "$numOfNumbers" || numOfNumbers=0
             ;;
         -s | -separator)
             separator="$2"
             ;;
         -w | -words)
             numWords="$2"
-            check_if_number "$numWords" || numWords=6
+            checkIfNumber "$numWords" || numWords=6
             ;;
     esac
     shift
@@ -86,7 +81,7 @@ fi
 for ((i=0; i<"$numWords"; i++)) {
     # get five digits to choose each word
     for ((j=0; j<5; j++)) {
-        digits+=$(getDigit)
+        digits+=$(shuf --random-source=/dev/random -i 1-6 -n1)
     }
     password+=$(getWord)
 
