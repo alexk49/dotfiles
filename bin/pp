@@ -12,14 +12,19 @@ check_if_number () {
     # check numWords arg is an actual number
     # if not, reset to default
     if [[ ! "$1" =~ ^[0-9]+$ ]]; then
-        echo "Arg for number of words must be a valid number. Setting to default value of 6" >&2
-        numWords=6
+        echo "Arg for must be a valid number. Setting to default value" >&2
+        return 1
     fi
 }
 
+
 downloadWordList () {
     echo "downloading word list"
-    curl -o /etc/word-list.txt https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt
+
+    if [[ ! -e "$HOME/.local" ]]; then
+        mkdir "$HOME/.local"
+    fi
+    curl -o "$WORD_FILE" https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt || echo "word list not found at $WORD_FILE, and unable to download word list" && exit 1
 }
 
 getDigit () {
@@ -34,25 +39,43 @@ getWord() {
     grep "$digits" "$WORD_FILE" | cut -d$'\t' -f2
 }
 
+appendNumbers () {
+    # append given number of numbers to password
+    digits=""
+
+    counter=0
+    while [[ "$numOfNumbers" -ne 0 && "$counter" < "$numOfNumbers" ]]; do
+        digits+=$(getDigit)
+        ((counter++))
+    done
+
+    password+="$digits"
+}
+
 # default values for command line args
 numWords=6
 separator="-"
+numOfNumbers=0
 
 while [[ -n "$1" ]]; do
     case "$1" in
+        -n | -numbers)
+            numOfNumbers="$2"
+            check_if_number "$numOfNumbers" || numOfNumbers=0
+            ;;
         -s | -separator)
             separator="$2"
             ;;
         -w | -words)
             numWords="$2"
-            check_if_number "$numWords"
+            check_if_number "$numWords" || numWords=6
             ;;
     esac
     shift
 done
 
 
-WORD_FILE="/etc/word-list.txt"
+WORD_FILE="$HOME/.local/word-list.txt"
 
 if [[ ! -e "$WORD_FILE" ]]; then
     echo "$WORD_FILE not found"
@@ -74,6 +97,8 @@ for ((i=0; i<"$numWords"; i++)) {
 
     # reset digits variable before getting next word
     digits=""
+
 }
 
+appendNumbers "$numOfNumbers"
 echo "$password"
