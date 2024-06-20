@@ -3,6 +3,7 @@ set nocompatible
 
 " set leader key to space
 let mapleader=" "
+let g:mapleader=" "
 
 " map local local to be used with plugins
 let maplocalleader=","
@@ -183,6 +184,19 @@ if has("win32")
 endif
 
 " remaps
+
+" https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim
+" deleted text goes to register 9
+" but leader d will cut to system clipboard, as will visual mode + x
+nnoremap x "9x
+nnoremap d "9d
+nnoremap D "9D
+vnoremap d "9d
+
+nnoremap <Leader>d "+d
+nnoremap <Leader>dd "+dd
+nnoremap <Leader>D "+D
+vnoremap <Leader>d "+d
 
 " remaps to make vim use virtual lines when using gj without count
 " but still use physical lines when used with count
