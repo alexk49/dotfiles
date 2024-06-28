@@ -95,8 +95,15 @@ set tabstop=4
 
 " Use space characters instead of tabs.
 set expandtab
+
 " indent a new line the same amount as line just typed
 set shiftwidth=4
+
+" indent javaScript files 2 spaces
+autocmd BufNewFile,BufRead *.js setlocal tabstop=2 shiftwidth=2 expandtab
+
+" use actual tabs for .txt, .csv, and .md files
+autocmd BufNewFile,BufRead *.txt,*.csv,*.md setlocal noexpandtab
 
 " make tab work better
 set smarttab
