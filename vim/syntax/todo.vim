@@ -1,3 +1,6 @@
+" use actual tabs
+setlocal noexpandtab
+
 " mixture of custom mappings nad changes to original
 syntax match JournalTask '^\*\s'
 syntax match JournalNotNeededTask '^\~\s.*$'
