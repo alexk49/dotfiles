@@ -1,17 +1,13 @@
 #!/bin/bash
 
-example_config () {
-cat << _EOF_
+# script used for quickly searching howto.txt file
+# simplified version of https://github.com/alexk49/howto.txt
 
-Example ht.cfg file
-~~~~~~~~~~~~~~~~~~~
-# set filepath to howto.txt
-howtofilepath="path-to-howto.txt"
-# set editor variable
+# update with filepath to howto.txt
+howtofilepath="$HOME/repos/docs/howto.txt"
+
+# set editor of your choice
 EDITOR=vim; export EDITOR
-
-_EOF_
-}
 
 add_to_file () {
     # add a new line to the howtofile
@@ -33,10 +29,10 @@ Usage: howto.sh [search, terms]
 howto.sh is set to work with a howto.txt file. The path to this should be set in the ht.cfg file.
 
 Add to howto.txt file:
-howto -a [text-to-add]
+ht -a [text-to-add]
 
 Edit howto.txt file:
-howto -e
+ht -e
 
 This file should consist of one line helpers.
 
@@ -70,26 +66,7 @@ create_search_query () {
     full_search_query="$search_query|$reverse_query"
 }
 
-source_config () {
-    # source config file if it exists
-    # else exit script
-    if [[ -f "$ht_config" ]]; then
-        # shellcheck source=./ht.cfg
-        source "$ht_config"
-    else
-        echo "No config file found. Please create config file named ht.cfg"
-        echo "This file should be placed in the same directory as howto.sh"
-        example_config
-        exit 1
-    fi
-}
-
 run_main () {
-    ht_dir="$(dirname "$0")"
-    ht_config="$ht_dir/ht.cfg"
-
-    source_config
-
     # check args
     if [[ "$#" -eq 0 ]]; then
         echo "Please enter an argument."
