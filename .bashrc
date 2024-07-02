@@ -126,9 +126,6 @@ alias etd="$EDITOR $HOME/notes/todo.txt"
 # aliases for scripts
 # ===================
 
-# howto script
-alias ht="$HOME/repos/howto.txt/howto.sh"
-
 # task journal script
 alias tj="$HOME/repos/task-journal/task-journal.sh"
 
