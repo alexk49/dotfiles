@@ -100,7 +100,7 @@ set expandtab
 set shiftwidth=4
 
 " indent javaScript files 2 spaces
-autocmd BufNewFile,BufRead *.js setlocal tabstop=2 shiftwidth=2 expandtab
+autocmd BufNewFile,BufRead *.js,*.css,*.html setlocal tabstop=2 shiftwidth=2 expandtab
 
 " use actual tabs for .txt, .csv, and .md files
 autocmd BufNewFile,BufRead *.txt,*.csv,*.md setlocal noexpandtab
