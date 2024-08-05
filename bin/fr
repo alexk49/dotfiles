@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# fr - find replace given values in file names
+# value to replace can be passed either with -f, -find or -o, -old
+# replacement value can be passed either with -r, -replacement or -n, -new
+
+usage () {
+    cat <<_EOF_
+
+replace -f [value-to-find-and-replace] -r [replacement-value] -p [filepath-or-directory-path]
+
+replace -o [value-to-find-and-replace] -n [replacement-value] -p [filepath-or-directory-path]
+_EOF_
+}
+
+while [[ -n "$1" ]]; do
+    case "$1" in
+        -f | -find | -o | -old)
+            find_value="$2"
+            ;;
+        -r | -replacement | -n | -new)
+            replace="$2"
+            ;;
+        -p | -path)
+            path="$2"
+            ;;
+    esac
+    shift
+done
+
+
+
+check_args () {
+    # these aren't quoted and don't use $
+    # as need to check the actual variables
+    # not the variable values
+    if [[ ! -v find_value ]] || [[ ! -v path ]]; then
+        echo "must give both find value and path as args"
+        usage
+        exit 1
+    fi
+
+    # default for replace is blank
+    if [[ ! -v "replace" ]]; then
+        replace=""
+    fi
+
+}
+
+
+
+rename_file () {
+
+    filepath="$1"
+    file="$(basename "$1")"
+    dir_path="$(dirname "$1")"
+
+    if [[ $file == *"$find_value"* ]]; then
+        new_filename=${file//$find_value/$replace}
+        new_filepath="$dir_path/$new_filename"
+
+        echo "changing: $filepath to: $new_filepath"
+        mv "$filepath" "$new_filepath"
+    else
+        echo "$find_value not found in $file"
+    fi
+}
+
+
+check_args
+
+if [[ -d "$path" ]]; then
+    echo "do something to all files in dir"
+    for file in *; do
+        rename_file "$file"
+    done
+elif [[ -f "$path" ]]; then
+    echo "doing operation to just one file"
+    rename_file "$path"
+else
+    echo "$path is not valid. Must give valid file path or directory path"
+    exit 1
+fi
