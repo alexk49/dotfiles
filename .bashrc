@@ -154,11 +154,29 @@ docs () {
         grep --color=auto -r -E "$@" "$docs_dir"/*
     fi
 }
+
 svenv () {
     # source virtual environment
     # as long as venv is named .venv
     linux_venv=".venv/bin/activate"
     windows_venv=".venv/scripts/activate"
+
+    if [[ -f "$linux_venv" ]]; then
+        echo "activating venv"
+        source "$linux_venv"
+    elif [[ -f "$windows_venv" ]]; then
+        echo "activating venv"
+        source "$windows_venv"
+    else
+        echo "No .venv found"
+    fi
+}
+
+dvenv () {
+    # source dev virtual environment
+    # as long as venv is named .dev-venv
+    linux_venv=".dev-venv/bin/activate"
+    windows_venv=".dev-venv/scripts/activate"
 
     if [[ -f "$linux_venv" ]]; then
         echo "activating venv"
