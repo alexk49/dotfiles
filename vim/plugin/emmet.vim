@@ -2,7 +2,9 @@
 " https://github.com/mattn/emmet-vim
 
 " this allows ,, to execute emmet commands
-let g:user_emmet_leader_key=','
+" this only seems to work on nvim and vim
+" when defined in main vimrc
+"let g:user_emmet_leader_key=','
 
 " only enable for html and css files
 let g:user_emmet_install_global = 0

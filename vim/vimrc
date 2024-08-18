@@ -280,6 +280,11 @@ if has('nvim')
 
 call plug#end()
 
+" this allows ,, to execute emmet commands
+" this only seems to work on nvim and vim
+" when defined in main vimrc
+let g:user_emmet_leader_key=','
+
 " colorscheme settings for everforest
 if has('termguicolors')
     set termguicolors
