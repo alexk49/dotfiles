@@ -15,6 +15,7 @@ venv
 
 # python nonsense
 __pycache__
+.mypy_cache
 
 # logs folders/file
 logs
