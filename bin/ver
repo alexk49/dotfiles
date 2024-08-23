@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # ver - version
-# add v2 to filename if no version set
-# other increment version by one:
+# make back up version of files
+# will add v2 to filename if no version set
+# otherwise, increment version by one:
 # so file_v2 becomes file_v3
 
 # can pass single file name:
@@ -15,9 +16,9 @@ usage () {
 cat << _END_
 usage: ver [path]
 
-ver is used to update versions of filenames.
-file.txt becomes file_v2.txt
-file_v2.txt becomes file_v3.txt
+ver is used to create back up versions of filenames.
+file.txt will get a a copy called: file_v2.txt
+file_v2.txt will get a copy called: file_v3.txt
 
 # update single file
 ver [path-to-file]
@@ -45,7 +46,7 @@ update_version () {
     filename="$1"
 
     # captures regex groups from the:
-    # check if version exists
+    # check if version exists check
     # in update_file
     prefix="${BASH_REMATCH[1]}"
     extension="${BASH_REMATCH[4]}"
@@ -62,7 +63,7 @@ update_version () {
 get_filename () {
     # gets filename from filepath
     # and defines variables that are used
-    # throughout rest of script
+    # in add_version
     filepath="$1"
 
     filename=$(basename ${filepath})
@@ -97,8 +98,7 @@ update_folder () {
     done
 }
 
-
-# assign args
+# check and assign args
 if [[ "$#" -eq 0 ]]; then
     echo "no args passed"
     usage
