@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# ver - version
+# add v2 to filename if no version set
+# other increment version by one:
+# so file_v2 becomes file_v3
+
+# can pass single file name:
+# ver [path-to-file]
+# or can pass whole folder
+# to change every file in folder:
+# ver [path-to-folder]
+
+usage () {
+cat << _END_
+usage: ver [path]
+
+ver is used to update versions of filenames.
+file.txt becomes file_v2.txt
+file_v2.txt becomes file_v3.txt
+
+# update single file
+ver [path-to-file]
+
+# update every file in folder
+ver [path-to-folder]
+
+_END_
+}
+
+add_version () {
+    # add new version to file
+    # folder_path, filename without ext and ext
+    # are all set in get_filename
+    filename="$1"
+    new_filepath="$folder_path"/"$filename_without_ext"_v2."$extension"
+    echo "changing $filepath to $new_filepath"
+    cp "$filepath" "$new_filepath"
+}
+
+
+update_version () {
+    # add one to ver
+    # v2 becomes v3 etc.
+    filename="$1"
+
+    # captures regex groups from the:
+    # check if version exists
+    # in update_file
+    prefix="${BASH_REMATCH[1]}"
+    extension="${BASH_REMATCH[4]}"
+    version_num="${BASH_REMATCH[3]}"
+
+    new_version=$(("$version_num"+1))
+    new_filename="$prefix"v"$new_version""$extension"
+    new_filepath="$folder_path"/"$new_filename"
+
+    echo "changing $filepath to $new_filepath"
+    cp "$filepath" "$new_filepath"
+}
+
+get_filename () {
+    # gets filename from filepath
+    # and defines variables that are used
+    # throughout rest of script
+    filepath="$1"
+
+    filename=$(basename ${filepath})
+    folder_path="$(dirname "$filepath")"
+    extension="${filename##*.}"
+    filename_without_ext="${filename%.*}"
+}
+
+update_file () {
+    # runs script to check file for ver
+    # and update or add version
+    filepath="$1"
+    get_filename "$filepath"
+
+    # check if version exists
+    if [[ "$filename" =~ (.*)(v([0-9]+))(.*$) ]]; then
+        update_version "$filename"
+    else
+        add_version "$filename"
+    fi
+}
+
+update_folder () {
+    # runs script to check every file
+    # in given folder for ver and update
+    folderpath="$1"
+
+    for filepath in "$folderpath"/*; do
+        if [ -f "$filepath" ]; then
+            update_file "$filepath"
+        fi
+    done
+}
+
+
+# assign args
+if [[ "$#" -eq 0 ]]; then
+    echo "no args passed"
+    usage
+    exit 1
+elif [[ "$1" == "-h" ]] || [[ "$1" == "--help" ]]; then
+    usage
+    exit 0
+elif [[ -f "$1" ]]; then
+    filepath="$1"
+    echo "updating version on $filepath"
+    update_file "$filepath"
+elif [[ -d "$1" ]]; then
+    folderpath="$1"
+    echo "updating versions of files in $folderpath"
+    update_folder "$folderpath"
+else
+    usage
+    exit 1
+fi
