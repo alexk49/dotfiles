@@ -38,6 +38,8 @@ let g:ale_linters = {
             \ 'xml': ['xmllint'],
             \ 'bash': ['shellcheck'],
             \ 'sh': ['shellcheck'],
+            \ 'markdown': ['proselint'],
+            \ 'text': ['proselint'],
             \ }
 
 " set ALE fixers
