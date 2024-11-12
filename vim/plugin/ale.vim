@@ -32,7 +32,7 @@ let g:ale_linters_explicit = 1
 
 let g:ale_linters = {
             \ 'python': ['flake8', 'mypy'],
-            \ 'javascript': ['standard'],
+            \ 'javascript': ['standard', 'eslint'],
             \ 'html': ['tidy'],
             \ 'css': ['stylelint'],
             \ 'xml': ['xmllint'],
@@ -46,7 +46,7 @@ let g:ale_fixers = {
 \   'javascript': ['prettier', 'standard'],
 \   'html': ['prettier'],
 \   'css': ['prettier'],
-\   'python': ['black', 'autoflake'],
+\   'python': ['black', 'autoflake', 'isort'],
 \}
 
 " fix files when you save them.
