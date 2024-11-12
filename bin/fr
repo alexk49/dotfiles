@@ -71,7 +71,7 @@ check_args
 
 if [[ -d "$path" ]]; then
     echo "do something to all files in dir"
-    for file in *; do
+    for file in $path/*; do
         rename_file "$file"
     done
 elif [[ -f "$path" ]]; then

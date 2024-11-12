@@ -51,9 +51,11 @@ fi
 # sets the umask to solve issues with shared dirs
 umask 0002
 
-if [[ -e ~/.bashrc.local ]]; then
-    source ~/.bashrc.local
-fi
+for file in ~/.bashrc.local ~/.bashrc_local; do
+    if [[ -e "$file" ]]; then
+        source "$file"
+    fi
+done
 
 # =====
 # paths
