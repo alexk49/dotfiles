@@ -32,7 +32,7 @@ let g:ale_linters_explicit = 1
 
 let g:ale_linters = {
             \ 'python': ['flake8', 'mypy'],
-            \ 'javascript': ['standard'],
+            \ 'javascript': ['standard', 'eslint'],
             \ 'html': ['tidy'],
             \ 'css': ['stylelint'],
             \ 'xml': ['xmllint'],
@@ -46,9 +46,9 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier', 'standard'],
+\   'python': ['black', 'autoflake', 'isort'],
 \   'html': ['prettier'],
 \   'css': ['prettier'],
-\   'python': ['black', 'autoflake'],
 \   'xml': ['xmllint'],
 \}
 

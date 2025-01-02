@@ -1,6 +1,8 @@
 # virtual environments
 .venv
+.dev-venv
 venv
+dev-venv
 
 # vim nonsense
 *.swp
