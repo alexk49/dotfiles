@@ -49,6 +49,7 @@ let g:ale_fixers = {
 \   'html': ['prettier'],
 \   'css': ['prettier'],
 \   'python': ['black', 'autoflake'],
+\   'xml': ['xmllint'],
 \}
 
 " fix files when you save them.
