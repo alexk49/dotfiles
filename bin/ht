@@ -34,6 +34,9 @@ ht -a [text-to-add]
 Edit howto.txt file:
 ht -e
 
+# override set location
+ht -f [path-to-file-to-treat-as-howto.txt]
+
 This file should consist of one line helpers.
 
 The convention for these should follow:
@@ -74,19 +77,41 @@ run_main () {
         exit 1
     fi
 
-    if [[ "$1" == "-a" ]]; then
-        addition="$2"
-        add_to_file
-    elif [[ "$1" == "-e" ]]; then
-        edit_file
-    elif [[ "$1" == "-h" || "$1" == "-help" ]]; then
-        usage
-    else
-        create_search_query "$@"
+    search_query=""
 
-        # search how to file with color highlighting
-        grep --color=auto -E "$full_search_query" "$howtofilepath"
-    fi
+    while [[ -n "$1" ]]; do
+        case "$1" in
+            -f | -file)
+            howtofilepath="$2"
+            shift
+            ;;
+        -a | -add)
+            addition="$2"
+            add_to_file
+            exit
+            ;;
+        -e | -edit)
+            edit_file
+            exit
+            ;;
+        -h | -help)
+            usage
+            exit
+            ;;
+        *)
+            search_query="$search_query $1"
+            ;;
+        esac
+        shift
+    done
+
+    # Trim leading and trailing whitespace from search_query
+    search_query=$(echo "$search_query" | xargs)
+
+    create_search_query "$search_query"
+
+    # search how to file with color highlighting
+    grep --color=auto -E "$full_search_query" "$howtofilepath"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]

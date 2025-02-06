@@ -18,14 +18,9 @@ let g:ale_virtualtext_cursor = 0
 " set virtual environment names
 let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
 
-" set line length for flake8
-let g:ale_python_flake8_options = '--max-line-length=120'
+let g:ale_python_flake8_options = '--config=~/.config/flake8'
 
-" ignore es501
-let g:ale_python_flake_options = 'ignore = E501'
-
-" set max line length for black
-let g:ale_python_black_options='--line-length=120'
+let g:ale_python_black_options = '--config=~/black'
 
 " only use specified linters
 let g:ale_linters_explicit = 1

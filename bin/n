@@ -30,6 +30,7 @@ n -f 3
 view today file and todo.txt file as day review:
 n -d
 n -dr
+n -wr
 
 view reminders file:
 n -r
@@ -159,7 +160,7 @@ while [[ -n "$1" ]]; do
         view_finished_tasks "$num_days"
         exit
         ;;
-        -d | -dr | --dayreview)
+        -d | -dr | -wr | --dayreview | --weekreview)
         "$EDITOR" -O "$today_filepath" "$TODO_FILE"
         exit
         ;;
