@@ -20,13 +20,13 @@ let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
 
 let g:ale_python_flake8_options = '--config=~/.config/flake8'
 
-let g:ale_python_black_options = '--config=~/black'
+let g:ale_python_black_options = '--config=~/.black'
 
 " only use specified linters
 let g:ale_linters_explicit = 1
 
 let g:ale_linters = {
-            \ 'python': ['flake8', 'mypy'],
+            \ 'python': ['ruff', 'flake8', 'mypy'],
             \ 'javascript': ['standard', 'eslint'],
             \ 'html': ['tidy'],
             \ 'css': ['stylelint'],
