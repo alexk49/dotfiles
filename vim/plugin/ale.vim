@@ -22,6 +22,8 @@ let g:ale_python_flake8_options = '--config=~/.config/flake8'
 
 let g:ale_python_black_options = '--config=~/.black'
 
+let g:ale_python_mypy_options = '--ignore-missing-imports'
+
 " only use specified linters
 let g:ale_linters_explicit = 1
 

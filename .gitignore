@@ -26,3 +26,6 @@ vim/tmp
 vim/view
 vim/undos
 nvim/undos
+
+todo.txt
+todo.txt.bak
