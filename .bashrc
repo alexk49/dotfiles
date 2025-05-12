@@ -191,6 +191,24 @@ dvenv () {
     fi
 }
 
+
+senv () {
+    # source .env fill in dir
+    # export $(grep -v '^#' .env | xargs)
+    while IFS='=' read -r key value || [ -n "$key" ]; do
+    # Skip comments and empty lines
+    [[ "$key" =~ ^#.*$ || -z "$key" ]] && continue
+
+    # Remove surrounding quotes if present
+    value="${value%\"}"
+    value="${value#\"}"
+    value="${value%\'}"
+    value="${value#\'}"
+
+    export "$key=$value"
+    done < .env
+}
+
 mcd () {
     # make and change directory
     # p switch makes parent directories if they don't exist
