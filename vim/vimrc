@@ -135,12 +135,7 @@ set nobackup
 " use rename-and-write-new method whenever safe
 set backupcopy=auto
 
-" seperate undo files to avoid compatability errors
-if has('nvim')
-    let undo_dir_path = expand('~/.config/nvim/undos//')
-else
-    let undo_dir_path = expand('~/.vim/undos//')
-endif
+let undo_dir_path = expand('~/.vim/undos//')
 
 if has("persistent_undo")
     " make undo dir if it doesn't exist
@@ -261,22 +256,6 @@ Plug 'mattn/emmet-vim'
 
 " async background tasks, needed for markdown preview
 Plug 'tpope/vim-dispatch'
-
-if has('nvim')
-
-    " LSP Support
-    Plug 'neovim/nvim-lspconfig'             " Required
-    Plug 'williamboman/mason.nvim',          " Optional
-    Plug 'williamboman/mason-lspconfig.nvim' " Optional
-
-    " Autocompletion
-    Plug 'hrsh7th/nvim-cmp'     " Required
-    Plug 'hrsh7th/cmp-nvim-lsp' " Required
-    Plug 'L3MON4D3/LuaSnip'     " Required
-
-    Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
-
-    endif
 
 call plug#end()
 
