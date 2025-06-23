@@ -113,6 +113,24 @@ vim.opt.expandtab = true
 vim.opt.linebreak = true
 vim.opt.visualbell = true
 
+-- Indent JavaScript, CSS, HTML files with 2 spaces
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "*.js", "*.css", "*.html" },
+	callback = function()
+		vim.opt_local.tabstop = 2
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.expandtab = true
+	end,
+})
+
+-- Use actual tabs for .txt, .csv, and .md files
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "*.txt", "*.csv", "*.md" },
+	callback = function()
+		vim.opt_local.expandtab = false
+	end,
+})
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -378,6 +396,7 @@ require("lazy").setup({
 			spec = {
 				{ "<leader>s", group = "[S]earch" },
 				{ "<leader>t", group = "[T]oggle" },
+				{ "<leader>d", group = "[D]ebugger" },
 				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
 			},
 		},
@@ -779,7 +798,6 @@ require("lazy").setup({
 		end,
 	},
 
-	--[[
 	{ -- Autoformat
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
@@ -795,21 +813,7 @@ require("lazy").setup({
 			},
 		},
 		opts = {
-			notify_on_error = false,
-			format_on_save = function(bufnr)
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
-				if disable_filetypes[vim.bo[bufnr].filetype] then
-					return nil
-				else
-					return {
-						timeout_ms = 500,
-						lsp_format = "fallback",
-					}
-				end
-			end,
+			format_on_save = false,
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
@@ -820,7 +824,6 @@ require("lazy").setup({
 			},
 		},
 	},
-	--]]
 
 	{ -- Autocompletion
 		"saghen/blink.cmp",
@@ -949,6 +952,96 @@ require("lazy").setup({
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
+	},
+
+	-- debugger plugins and config
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-neotest/nvim-nio",
+			"williamboman/mason.nvim",
+			"jay-babu/mason-nvim-dap.nvim",
+		},
+		config = function()
+			local dap = require("dap")
+			local ui = require("dapui")
+			local mason_dap = require("mason-nvim-dap")
+			local opts = { noremap = true, silent = true }
+
+			-- Setup DAP UI
+			require("dapui").setup()
+
+			-- Setup Mason DAP
+			mason_dap.setup({
+				ensure_installed = { "debugpy" },
+				automatic_installation = false,
+				handlers = {
+					function(config)
+						mason_dap.default_setup(config)
+					end,
+				},
+			})
+
+			-- Python DAP config
+			dap.configurations.python = {
+				{
+					type = "python",
+					request = "launch",
+					name = "Launch file",
+					program = "${file}",
+					pythonPath = function()
+						local cwd = vim.fn.getcwd()
+						if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+							return cwd .. "/venv/bin/python"
+						elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+							return cwd .. "/.venv/bin/python"
+						else
+							return "/usr/bin/python3"
+						end
+					end,
+				},
+			}
+
+			vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Toggle Breakpoint", unpack(opts) })
+			vim.keymap.set("n", "<leader>dB", function()
+				vim.ui.input({ prompt = "Breakpoint condition: " }, function(condition)
+					if condition then
+						dap.set_breakpoint(condition)
+					end
+				end)
+			end, { desc = "Set Conditional Breakpoint", unpack(opts) })
+
+			vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Continue", unpack(opts) })
+			vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Step Into", unpack(opts) })
+			vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "Step Over", unpack(opts) })
+			vim.keymap.set("n", "<leader>dO", dap.step_out, { desc = "Step Out", unpack(opts) })
+			vim.keymap.set("n", "<leader>dr", dap.restart, { desc = "Restart", unpack(opts) })
+			vim.keymap.set("n", "<leader>dq", function()
+				dap.terminate()
+				ui.close()
+			end, { desc = "Terminate", unpack(opts) })
+			vim.keymap.set("n", "<leader>dl", dap.run_last, { desc = "Run Last", unpack(opts) })
+			vim.keymap.set({ "n", "v" }, "<leader>de", function()
+				ui.eval()
+			end, { desc = "Eval Expression", unpack(opts) })
+			vim.keymap.set("n", "<leader>du", ui.toggle, { desc = "Toggle UI", unpack(opts) })
+
+			-- Auto open/close DAP UI
+			dap.listeners.before.attach.dapui_config = function()
+				ui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				ui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				ui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				ui.close()
+			end
+		end,
 	},
 
 	{ -- Collection of various small independent plugins/modules

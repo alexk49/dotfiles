@@ -61,7 +61,7 @@ done
 # paths
 # ====
 
-export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/local/bin:$Home/.local/bin"
+export PATH="$PATH:$HOME/bin:$HOME/scripts:$HOME/dotfiles/bin:$HOME/local/bin:$HOME/.local/bin"
 
 # ============
 # set aliases
