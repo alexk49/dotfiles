@@ -104,6 +104,16 @@ vim.opt.fileformats = { "unix", "dos", "mac" }
 vim.opt.path:append({ ".", "**" })
 vim.opt.wildmenu = true
 vim.opt.wildignorecase = true
+vim.opt.wildignore:append({
+  "*.swp",
+  "*/node_modules/*",
+  "*/.git/*",
+  "*/.venv/*",
+  "*/.dev-venv/*",
+  "*/dist/*",
+  "*/build/*",
+  "*.pyc",
+})
 vim.opt.wildmode = { "full" }
 vim.opt.hidden = true
 vim.opt.history = 1000

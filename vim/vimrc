@@ -5,7 +5,7 @@ set nocompatible
 let mapleader=" "
 let g:mapleader=" "
 
-" map local local to be used with plugins
+" map local leader to be used with plugins
 let maplocalleader=","
 
 " allow mouse use
@@ -21,13 +21,22 @@ set encoding=utf-8
 set fileformats=unix,dos,mac
 
 " make vim paste from external programs with just p
-set clipboard^=unnamed,unnamedplus
+"set clipboard=unnamed,unnamedplus
+"
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " when you search for a file, search through every sub directory
 set path+=.,**
-
-" automatically change directory to currently open file
-set autochdir
 
 " when splitting set new file to appear in right window
 set splitright
@@ -46,7 +55,7 @@ set wildignorecase
 set wildchar=<Tab> wildmode=full
 
 " ignore swp files in tabs
-setglobal wildignore+=*.swp
+set wildignore+=*.swp,*/node_modules/*,*/.git/*,*/.venv/*,*/.dev-venv/*,*/dist/*,*/build/*,*.pyc
 
 " allow switching of buffers without saving
 set hidden
@@ -190,15 +199,15 @@ endif
 " https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim
 " deleted text goes to register 9
 " but leader d will cut to system clipboard, as will visual mode + x
-nnoremap x "9x
-nnoremap d "9d
-nnoremap D "9D
-vnoremap d "9d
+"nnoremap x "9x
+"nnoremap d "9d
+"nnoremap D "9D
+"vnoremap d "9d
 
-nnoremap <Leader>d "+d
-nnoremap <Leader>dd "+dd
-nnoremap <Leader>D "+D
-vnoremap <Leader>d "+d
+"nnoremap <Leader>d "+d
+"nnoremap <Leader>dd "+dd
+"nnoremap <Leader>D "+D
+"vnoremap <Leader>d "+d
 
 " remaps to make vim use virtual lines when using gj without count
 " but still use physical lines when used with count
@@ -209,14 +218,14 @@ noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <Esc><Esc> :noh<Return><Esc>
 
 " quickly remove highlights with double tap esc
-nnoremap <M-l> :noh<Return><Esc>
+"nnoremap <M-l> :noh<Return><Esc>
 
 " Change indent continuously
 vmap < <gv
 vmap > >gv
 
 " add time stamp with ts in normal mode
-nnoremap ts !!date "+\%Y-\%m-\%d \%H:\%M"<Return><Esc>
+nnoremap ts !!date "+\%Y-\%m-\%d \%H:\%M"<Return>
 
 " remap vt to vertical terminal
 " this checks your in command mode first
@@ -233,29 +242,26 @@ packadd! matchit
 " vim plug plugin manager
 call plug#begin('~/.vimfiles/plugged')
 
-" color scheme
-Plug 'sainnhe/everforest'
+    " color scheme
+    Plug 'sainnhe/everforest'
 
-" useful for working with html tags
-Plug 'tpope/vim-surround'
+    " todo.txt highlights and shortcuts
+    Plug 'freitass/todo.txt-vim'
 
-" todo.txt highlights and shortcuts
-Plug 'freitass/todo.txt-vim'
+    " useful for working with html tags
+    Plug 'tpope/vim-surround'
 
-" switch panes with tmux with same keys
-Plug 'christoomey/vim-tmux-navigator'
+    " switch panes with tmux with same keys
+    Plug 'christoomey/vim-tmux-navigator'
 
-" zen mode
-Plug 'junegunn/goyo.vim'
+    " zen mode
+    Plug 'junegunn/goyo.vim'
 
-" linters
-Plug 'dense-analysis/ale'
+    " linters
+    Plug 'dense-analysis/ale'
 
-" shortcuts for writing html
-Plug 'mattn/emmet-vim'
-
-" async background tasks, needed for markdown preview
-Plug 'tpope/vim-dispatch'
+    " shortcuts for writing html
+    Plug 'mattn/emmet-vim'
 
 call plug#end()
 
