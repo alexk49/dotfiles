@@ -107,12 +107,16 @@ vim.opt.wildignorecase = true
 vim.opt.wildignore:append({
   "*.swp",
   "*/node_modules/*",
+  "*node_modules*",
   "*/.git/*",
   "*/.venv/*",
   "*/.dev-venv/*",
   "*/dist/*",
   "*/build/*",
   "*.pyc",
+  "*htmlcov*",
+  "*__pycache__*",
+  "*/__pycache__/*",
 })
 vim.opt.wildmode = { "full" }
 vim.opt.hidden = true
@@ -157,9 +161,21 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
+-- vim.schedule(function()
+-- 	vim.opt.clipboard = "unnamedplus"
+-- end)
+
+-- Copy to clipboard
+vim.keymap.set('v', '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>Y', '"+yg_')
+vim.keymap.set('n', '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>yy', '"+yy')
+
+-- Paste from clipboard
+vim.keymap.set('n', '<leader>p', '"+p')
+vim.keymap.set('n', '<leader>P', '"+P')
+vim.keymap.set('v', '<leader>p', '"+p')
+vim.keymap.set('v', '<leader>P', '"+P')
 
 -- Enable break indent
 vim.opt.breakindent = true
