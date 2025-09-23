@@ -3,7 +3,7 @@
 # script to create sym links for dotfiles
 # and move existing dotfiles to /backup dir
 
-backup_dir="$HOME/backup"
+backup_dir="$HOME/backups"
 
 check_backup_dir () {
     if [[ -d "$backup_dir" ]]; then

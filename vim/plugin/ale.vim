@@ -26,7 +26,7 @@ let g:ale_javascript_tsserver_executable = 'typescript-language-server'
 let g:ale_virtualtext_cursor = 0
 
 " set virtual environment names
-let g:ale_virtualenv_dir_names = ['venv', '.venv', 'env']
+let g:ale_virtualenv_dir_names = ['venv', '.venv', '.dev-venv', 'env']
 
 "let g:ale_python_flake8_options = '--config=~/.config/flake8'
 

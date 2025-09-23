@@ -251,3 +251,4 @@ function parse_git_branch {
 
 # added time and removed home machine name from prompt
 PS1="\[\e[2;37m\](\A)\[\e[0m\] \[\e[01;32m\]\u\[\e[0m\]@\h:\[\e[01;34m\]\w\[\e[0m\]\[\e[01;31m\]\$(parse_git_branch)\[\e[0m\]\$ "
+
