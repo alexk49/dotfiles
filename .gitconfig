@@ -1,7 +1,7 @@
 # local settings/private details go in included file
 [user]
     name = alexk49
-    email = alexcode9@mailbox.org
+    email = alex@kennett.dev
 [include]
     path = ~/.gitconfig.local
 [includeIf "gitdir:~/work-repos/**"]

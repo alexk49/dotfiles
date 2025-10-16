@@ -25,6 +25,7 @@ logs
 vim/tmp
 vim/view
 vim/undos
+vim/autoload
 nvim/undos
 
 todo.txt
