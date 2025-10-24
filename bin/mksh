@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+usage () {
+    cat << _EOF_
+
+Usage: [options] <filepath>
+
+options:
+-f | --full
+create full template with usage function etc.
+
+-h | --help
+see this help message
+
+given filepath is template bash file that will be made
+
+_EOF_
+}
+
+simple_template() {
+    filepath="$1"
+
+    cat > "$filepath" << _EOF_
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+_EOF_
+}
+
+full_template() {
+    filepath="$1"
+
+    cat > "$filepath" << _TEMPLATE_
+#!/usr/bin/env bash
+
+set -e
+set -u
+set -o pipefail
+
+
+usage () {
+    cat << _EOF_
+
+-h | --help
+see this help message
+_EOF_
+}
+
+
+main() {
+    if [[ \$# -eq 0 ]]; then
+        echo "No arguments supplied"
+        usage
+        exit 1
+    fi
+
+    while [[ \$# -gt 0 ]]; do
+        case "\$1" in
+            -h|--help)
+                usage
+                exit 0
+                ;;
+        esac
+        shift
+    done
+}
+
+if [[ "\${BASH_SOURCE[0]}" == "\${0}" ]]
+then
+  main "\$@"
+fi
+
+_TEMPLATE_
+}
+
+
+main() {
+    if [[ $# -eq 0 ]]; then
+        echo "No arguments supplied"
+        usage
+        exit 1
+    fi
+
+    filepath=""
+    full_template=false
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -f|--full)
+                full_template=true
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            -*)
+                echo "Unknown option: $1"
+                usage
+                exit 1
+                ;;
+            *)
+                # Treat the first non-flag argument as the filepath
+                if [[ -z "$filepath" ]]; then
+                    filepath="$1"
+                else
+                    echo "Multiple filepaths supplied: $filepath and $1"
+                    usage
+                    exit 1
+                fi
+                ;;
+        esac
+        shift
+    done
+
+    # Check if filepath was supplied
+    if [[ -z "$filepath" ]]; then
+        echo "No filepath supplied"
+        usage
+        exit 1
+    fi
+
+    echo "creating shell script template at filepath: $filepath"
+
+    if [[ "$full_template" = true ]]; then
+        echo "making full template"
+        full_template "$filepath"
+    else
+        echo "making simple template"
+        simple_template "$filepath"
+    fi
+
+    chmod u+x "$filepath"
+
+    "$EDITOR" "$filepath"
+
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
+then
+  main "$@"
+fi

@@ -118,20 +118,8 @@ alias nv="nvim"
 
 alias vi="vim"
 
-# get path
-alias gp="find -type f | fzf | sed 's/^..//' | tr -d '\n' | xclip -selection a"
-
 # edit todo.txt file
-alias etd="$EDITOR $HOME/notes/todo.txt"
-
-# ===================
-# aliases for scripts
-# ===================
-
-# task journal script
-alias tj="$HOME/repos/task-journal/task-journal.sh"
-
-alias notes="cd $HOME/notes"
+alias etd="$EDITOR $HOME/Documents/notes/todo.txt"
 
 # ===============
 # todo.txt config
@@ -145,15 +133,15 @@ alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
 # set functions
 # =============
 
-docs () {
-    docs_dir="$HOME/repos/docs"
+notes () {
+    notes_dir="$HOME/Documents/notes"
 
     if [[ "$#" == 0 ]]; then
         # no additional args given just cd dir
-        cd "$docs_dir"
+        cd "$notes_dir"
     else
         # /* after variable as otherwise it treats the /* as a literal path
-        grep --color=auto -r -E "$@" "$docs_dir"/*
+        grep --color=auto -r -E "$@" "$notes_dir"/*
     fi
 }
 
@@ -209,7 +197,8 @@ senv () {
     done < .env
 }
 
-mcd () {
+
+mkcd () {
     # make and change directory
     # p switch makes parent directories if they don't exist
     # v gives verbosity
@@ -222,18 +211,6 @@ hg () {
     # history grep
     # grep search through history
     history | grep "$1";
-}
-
-
-mrf () {
-    # get most recent file from current dir
-    find . -maxdepth 1 -not -type d -print0 | xargs -0 ls -t | head -n 1
-}
-
-
-fcd () {
-    # find and change directory
-    cd "$(find -type d | fzf)"
 }
 
 

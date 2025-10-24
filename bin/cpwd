@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# copy current directory to clipboard
+
+set -e
+set -u
+set -o pipefail
+
+pwd | tr -d '\n' | copy

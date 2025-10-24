@@ -4,6 +4,6 @@
 # get random task from todo.txt file
 # and output to terminal
 
-TODO_FILE="$HOME/notes/todo.txt"
+TODO_FILE="$HOME/Documents/notes/todo.txt"
 
 cat "$TODO_FILE" | shuf -n 1

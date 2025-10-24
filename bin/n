@@ -49,7 +49,7 @@ _EOF_
 # set vim as default editor
 EDITOR=vim; export EDITOR
 
-NOTES_FOLDER="$HOME/notes"
+NOTES_FOLDER="$HOME/Documents/notes"
 REMINDERS_FILE="$NOTES_FOLDER/reminders.txt"
 TODO_FILE="$NOTES_FOLDER/todo.txt"
 

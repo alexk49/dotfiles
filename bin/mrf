@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# get most recent file from current dir
+ls -t | head -n 1
