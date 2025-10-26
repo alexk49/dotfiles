@@ -73,8 +73,7 @@ nnoremap K <cmd>ALEHover<CR>
 let g:ale_set_balloons = 1
 
 
-nnoremap gd <cmd>ALEGoToDefinition<CR>
-nnoremap grd <cmd>ALEGoToDefinition<CR>
+nnoremap <leader>gd <cmd>ALEGoToDefinition<CR>
 nnoremap <leader>gr <cmd>ALEFindReferences<CR>
 nnoremap <leader>ca <cmd>ALECodeAction<CR>
 

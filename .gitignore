@@ -28,5 +28,5 @@ vim/undos
 vim/autoload
 nvim/undos
 
-todo.txt
-todo.txt.bak
+.todo.txt
+.notes
