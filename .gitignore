@@ -30,3 +30,5 @@ nvim/undos
 
 .todo.txt
 .notes
+.todo.txt.bak
+.pythonrc.py
