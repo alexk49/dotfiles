@@ -8,12 +8,14 @@ Add this line to that file:
 
 #>
 
+Set-PSReadlineOption -EditMode vi
+
 Set-Alias -Name unzip -Value Expand-Archive
 Set-Alias -Name zip -Value Compress-Archive
 Set-Alias -Name touch -Value New-Item
 Set-Alias -Name grep -Value Select-String
 Set-Alias -Name np -Value notepad
-Set-Alias -Name vi -Value nvim
+#Set-Alias -Name which -Value Get-Command
 
 # git aliases
 Set-Alias -Name g -Value git
@@ -50,21 +52,11 @@ function l. {
 
 function etd {
     # open todo.txt file in editor
-   nvim "$HOME\notes\todo.txt"
-}
-
-function ht {
-    # run howto.sh script
-    bash "$HOME\repos\howto.txt\howto.sh" "$args"
-}
-
-function tj {
-    # run task journal script
-    bash "$HOME\repos\task-journal.sh" "$args"
+   vim "$HOME\Documents\notes\todo.txt"
 }
 
 function notes {
-    cd "$HOME\notes"
+    cd "$HOME\Documents\notes"
 }
 
 function svenv {
@@ -80,6 +72,19 @@ function svenv {
     }
 }
 
+function dvenv {
+    # source virtual environment if it exists
+    # assumes virtual environment is named .dev-venv
+    $venv_path=".dev-venv\scripts\activate.ps1"
+    if (Test-Path -Path "$venv_path") {
+        Write-Output "activating venv"
+        & "$PWD\$venv_path"
+        }
+    else {
+        Write-Output "no .dev-venv found"
+    }
+}
+
 function mrd {
     # get the most recent downloaded file
     # and open it in vim
@@ -92,5 +97,5 @@ function mrd {
     $mostRecentFile = $files | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 
     # Return the full filepath of the most recent file
-    nvim $mostRecentFile.FullName
+    vim $mostRecentFile.FullName
 }

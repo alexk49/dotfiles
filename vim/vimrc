@@ -284,7 +284,7 @@ catch
 endtry
 
 " todo.txt config for all .txt files in notes folder
-autocmd BufNewFile,BufRead $HOME/notes/**.txt,**/*howto*.txt setlocal filetype=todo
+autocmd BufNewFile,BufRead $HOME/**/notes/**.txt,**/*howto*.txt setlocal filetype=todo
 
 " set shell syntax for .bats test files
 autocmd BufNewFile,BufRead *.bats setlocal filetype=sh
