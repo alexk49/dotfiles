@@ -119,7 +119,7 @@ alias nv="nvim"
 alias vi="vim"
 
 # edit todo.txt file
-alias etd="$EDITOR $HOME/Documents/notes/todo.txt"
+alias etd="$EDITOR $HOME/Documents/notes/todos/todo.txt"
 
 # ==============
 # python repl startup config
