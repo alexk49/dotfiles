@@ -147,7 +147,7 @@ notes () {
         cd "$notes_dir"
     else
         # /* after variable as otherwise it treats the /* as a literal path
-        grep --color=auto -r -E "$@" "$notes_dir"/*
+        grep --color=auto -i -r -e "$*" "$notes_dir"/*
     fi
 }
 
