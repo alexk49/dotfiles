@@ -119,7 +119,7 @@ alias nv="nvim"
 alias vi="vim"
 
 # edit todo.txt file
-alias etd="$EDITOR $HOME/Documents/notes/todos/todo.txt"
+alias etd="$EDITOR $HOME/repos/notes/todo.txt"
 
 # ==============
 # python repl startup config
@@ -140,7 +140,7 @@ alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
 # =============
 
 notes () {
-    notes_dir="$HOME/Documents/notes"
+    notes_dir="$HOME/repos/notes"
 
     if [[ "$#" == 0 ]]; then
         # no additional args given just cd dir

@@ -23,7 +23,7 @@ declare -a dotfiles=(".bashrc"
           ".gitignore"
           ".inputrc"
           ".tmux.conf"
-          ".pythonrc"
+          ".pythonrc.py"
 )
 
 # check if files exist and create .bak if they do

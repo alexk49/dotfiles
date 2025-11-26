@@ -32,3 +32,7 @@ nvim/undos
 .notes
 .todo.txt.bak
 .pythonrc.py
+
+.env
+.env*
+node_modules
