@@ -1,0 +1,112 @@
+#!/bin/bash
+
+usage () {
+    cat << _EOF_
+
+Usage: $(basename "$0") [options]
+
+-h | --help
+see usage
+
+-p | --path
+path to directory to create files in
+
+-pac | --packages
+additional npm packages to install as dev dependencies, for example:
+
+  --packages eslint-plugin-import stylelint-config-standard
+
+_EOF_
+}
+
+create_package_json () {
+    echo "creating package.json with default configuration..."
+    cat > "$path/package.json" << _EOF_
+{
+  "name": "$(basename "$path")",
+  "version": "0.1.0",
+  "description": "A new Node.js/JS/CSS project",
+  "scripts": {
+    "lint:js": "npx eslint static/**/*.js",
+    "format:js": "npx prettier --write static/**/*.js",
+    "lint:css": "npx stylelint static/**/*.css",
+    "format:css": "npx stylelint --fix static/**/*.css"
+  },
+  "devDependencies": {}
+}
+_EOF_
+}
+
+main () {
+    if [[ $# -eq 0 ]]; then
+        echo "No arguments supplied"
+        usage
+        exit 1
+    fi
+
+    path=false
+    packages=()
+
+    while [[ -n "$1" ]]; do
+        case "$1" in
+            -h | -help | --help)
+                usage
+                exit 0
+                ;;
+            -p | --path)
+                if [[ -z "$2" ]]; then
+                    echo "Error: Missing argument for --path" >&2
+                    exit 1
+                fi
+                path="$2"
+                shift
+                ;;
+            -pac | --packages)
+                shift
+                while [[ -n "$1" && "$1" != -* ]]; do
+                    packages+=("$1")
+                    shift
+                done
+                continue
+                ;;
+            *)
+                echo "Unknown option: $1"
+                usage
+                exit 1
+                ;;
+        esac
+        shift
+    done
+
+    if [[ "$path" = false ]]; then
+        path="$(pwd)"
+        echo "path not set, defaulting to pwd: $path"
+    else
+        echo "path set as $path"
+    fi
+
+    mkdir -p "$path"
+    cd "$path" || { echo "Error: cannot cd to $path"; exit 1; }
+
+    if [[ ! -f "package.json" ]]; then
+        npm init -y >/dev/null 2>&1
+        create_package_json
+        echo "package.json created"
+    else
+        echo "package.json already exists — skipping creation"
+    fi
+
+    default_dev_packages=(eslint prettier stylelint)
+
+    if [[ ${#packages[@]} -gt 0 ]]; then
+        echo "installing dev dependencies: ${default_dev_packages[*]} ${packages[*]}"
+        npm install --save-dev "${default_dev_packages[@]}" "${packages[@]}"
+    else
+        echo "installing default dev dependencies: ${default_dev_packages[*]}"
+        npm install --save-dev "${default_dev_packages[@]}"
+    fi
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

@@ -1,0 +1,237 @@
+#!/bin/bash
+
+usage () {
+    cat << _EOF_
+
+Usage: $(basename "$0") [options]
+
+-h | --help
+see usage
+
+-p | --path
+path to directory to make files in
+
+-s | --script [script-name]
+make new python script only, optional to pass name
+
+-v | --venv
+pass venv name
+
+-pac | --packages
+pass additional packages, for example:
+--packages djlint coverage python-dotenv
+
+_EOF_
+}
+
+
+create_pyproject_toml () {
+    project_name="$1"
+    echo "creating pyproject.toml with default configuration..."
+    cat > "$path/pyproject.toml" << _EOF_
+[project]
+name = "$project_name"
+version = "0.1.0"
+description = "A new Python project"
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+lint = [
+    "ruff",
+    "mypy",
+]
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+# Avoid enforcing line-length violations (E501)
+ignore = ["E501"]
+
+[tool.mypy]
+ignore_missing_imports = true
+strict = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[build-system]
+requires = ["setuptools >= 64"]
+build-backend = "setuptools.build_meta"
+
+_EOF_
+
+}
+
+
+mkpyproject () {
+    if [[ "$venv" = false ]]; then
+        venv=".venv"
+        echo "venv name not set, defaulting to $venv"
+    else
+        echo "venv name set to $venv"
+    fi
+
+    if command -v python3 >/dev/null 2>&1; then
+        PYTHON=python3
+    elif command -v python >/dev/null 2>&1; then
+        PYTHON=python
+    else
+        echo "Error: Python is not installed or not in PATH." >&2
+        exit 1
+    fi
+
+    echo "Using python executable: $PYTHON"
+
+    if [[ -d "$venv" ]]; then
+        echo "Virtual environment '$venv' already exists."
+    else
+        echo "Creating virtual environment: $venv"
+        "$PYTHON" -m venv "$venv" || { echo "Failed to create venv."; exit 1; }
+    fi
+
+    if [[ -f "$venv/bin/activate" ]]; then
+        ACTIVATE_PATH="$venv/bin/activate"
+    elif [[ -f "$venv/Scripts/activate" ]]; then
+        ACTIVATE_PATH="$venv/Scripts/activate"
+    else
+        echo "Error: No venv activation script found in $venv" >&2
+        exit 1
+    fi
+
+    source "$ACTIVATE_PATH" || exit 1
+
+    cd "$path" || exit 1
+    pip install --upgrade pip >/dev/null 2>&1
+
+    default_packages=(ruff mypy)
+
+    if [[ ${#packages[@]} -gt 0 ]]; then
+            pip install "${default_packages[@]}" "${packages[@]}"
+        else
+            pip install "${default_packages[@]}"
+    fi
+
+    project_name="$(basename "$path")"
+
+    # Create or update pyproject.toml
+    if [[ ! -f "pyproject.toml" ]]; then
+        create_pyproject_toml "$project_name"
+    else
+        echo "pyproject.toml already exists — skipping creation."
+    fi
+
+    mkpy_script "$project_name" "$path"
+}
+
+mkpy_script () {
+    script_name="$1"
+    path="$2"
+
+    if [[ "$script_name" != *.py ]]; then
+        echo "adding .py extension on to script name"
+        script_name="$script_name.py"
+    fi
+
+    cat > "$path/$script_name" << _EOF_
+#!/usr/bin/env python
+
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+    main()
+_EOF_
+
+    chmod u+x "$script_name"
+
+    "$EDITOR" "$script_name"
+}
+
+
+main () {
+    if [[ $# -eq 0 ]]; then
+        echo "No arguments supplied"
+        usage
+        exit 1
+    fi
+
+    path=false
+    venv=false
+    script=false
+
+    while [[ -n "$1" ]]; do
+        case "$1" in
+            -h | -help | --help)
+            usage
+            exit 0
+            ;;
+            -p | --path)
+            if [[ -z "$2" ]]; then
+               echo "Error: Missing argument for --path" >&2
+               exit 1
+            fi
+            path="$2"
+            shift
+            ;;
+            -s | --script)
+            script=true
+            if [[ -z "$2" ]]; then
+                echo "no custom script name given, defaulting to main.py"
+                script_name="main.py"
+           else
+               script_name="$2"
+            fi
+            shift
+            ;;
+            -v | --venv)
+            if [[ -z "$2" ]]; then
+               echo "Error: Missing argument for --venv" >&2
+               exit 1
+            fi
+            venv="$2"
+            shift
+            ;;
+            -pac | --packages)
+            shift
+            packages=()
+            while [[ -n "$1" && "$1" != -* ]]; do
+                packages+=("$1")
+                shift
+            done
+            continue
+            ;;
+            *)
+            echo "Unknown option: $1"
+            usage
+            exit 1
+            ;;
+        esac
+        shift
+    done
+
+    if [[ "$path" = false ]]; then
+        path="$(pwd)"
+        echo "path not set, defaulting to pwd: $path"
+    else
+        echo "path set as $path"
+    fi
+
+    mkdir -p "$path"
+    cd "$path" || { echo "Error: cannot cd to $path"; exit 1; }
+
+    if [[ "$script" = true ]]; then
+        mkpy_script "$script_name" "$path"
+        exit
+    fi
+
+    mkpyproject
+}
+
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
+then
+  main "$@"
+fi
