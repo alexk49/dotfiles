@@ -100,3 +100,25 @@ if [[ "$OSTYPE" != "linux-gnu" ]]; then
     ln -vs "$new_vim_folder" "$windows_vim_folder"
     ln -vs "$new_nvim_folder" "$windows_nvim_folder"
 fi
+
+# set up tmux package manager
+if [[ ! -e ~/.tmux/plugins/tmp ]]; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+# install vimplug
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+if [[ ! -e "$HOME/scripts/todo.sh" ]]; then
+
+    mkdir -p "$HOME/scripts"
+
+    wget -O "$HOME/scripts/todo_completion" \
+        https://raw.githubusercontent.com/todotxt/todo.txt-cli/master/todo_completion
+
+    wget -O "$HOME/scripts/todo.sh" \
+        https://raw.githubusercontent.com/todotxt/todo.txt-cli/master/todo.sh
+
+    chmod +x "$HOME/scripts/todo_completion" "$HOME/scripts/todo.sh"
+fi
