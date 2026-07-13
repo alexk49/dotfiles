@@ -165,6 +165,9 @@ vim.opt.showmode = false
 -- 	vim.opt.clipboard = "unnamedplus"
 -- end)
 
+-- use system clipboard over ssh
+vim.g.clipboard = 'osc52'
+
 -- Copy to clipboard
 vim.keymap.set('v', '<leader>y', '"+y')
 vim.keymap.set('n', '<leader>Y', '"+yg_')
