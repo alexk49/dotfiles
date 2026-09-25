@@ -267,6 +267,9 @@ call plug#begin('~/.vimfiles/plugged')
     " shortcuts for writing html
     Plug 'mattn/emmet-vim'
 
+    " css colours
+    Plug 'ap/vim-css-color'
+
 call plug#end()
 
 " this allows ,, to execute emmet commands
