@@ -118,38 +118,15 @@ alias nv="nvim"
 
 alias vi="vim"
 
-# edit todo.txt file
-alias etd="$EDITOR $HOME/repos/notes/todo.txt"
-
 # ==============
 # python repl startup config
 # ==============
 
 export PYTHONSTARTUP=~/.pythonrc.py
 
-# ===============
-# todo.txt config
-# ===============
-
-source "$HOME/scripts/todo_completion"
-export TODOTXT_DEFAULT_ACTION=ls
-alias td="$HOME/scripts/todo.sh -d $HOME/dotfiles/todo.cfg"
-
 # =============
 # set functions
 # =============
-
-notes () {
-    notes_dir="$HOME/repos/notes"
-
-    if [[ "$#" == 0 ]]; then
-        # no additional args given just cd dir
-        cd "$notes_dir"
-    else
-        # /* after variable as otherwise it treats the /* as a literal path
-        grep --color=auto -i -r -e "$*" "$notes_dir"/*
-    fi
-}
 
 svenv () {
     # source virtual environment
